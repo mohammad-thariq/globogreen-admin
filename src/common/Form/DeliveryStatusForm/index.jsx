@@ -3,7 +3,7 @@ import style from "./index.module.css";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { orderStatusOptions } from "@/constant/statusConst";
-
+import { InputSelect } from "../common/inputSelect";
 export const DeliveryStatusForm = ({
   onClose,
   data,
@@ -19,18 +19,19 @@ export const DeliveryStatusForm = ({
 
   return (
     <div className={style.wrapper}>
-      <h3>Order Status</h3>
       <Formik
         initialValues={{
-          payment_status: data?.payment_status || "",
-          order_status: data?.order_status || "",
+          payment_status: data?.payment_status +1 || "",
+          order_status: data?.order_status +1 || "",
+          delivery_man_id: data?.delivery_man_id
         }}
         validationSchema={schema}
         onSubmit={(values, actions) => {
           updateOrderStatus({
             id: currentOrderId,
-            order_status: values.order_status,
-            payment_status: values.payment_status,
+            order_status: values.order_status -1,
+            payment_status: values.payment_status -1,
+            delivery_man_id: Number(values.delivery_man_id)
           });
           actions.setSubmitting(true);
         }}
@@ -42,80 +43,49 @@ export const DeliveryStatusForm = ({
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting,
         }) => (
           <>
             <form>
-              <label className={style.label}>Payment</label>
-              <select
-                className="form-select"
-                aria-label="Default select example"
+              <InputSelect
+                label="Payment"
                 name="payment_status"
-                onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.payment_status}
+                onChange={handleChange}
+                values={values.payment_status}
                 placeholder="Payment Status"
-              >
-                <option hidden>Select Payment Status</option>
-                {orderStatusOptions?.paymentStatus?.map((i) => (
-                  <option key={i?.value} value={i?.value}>
-                    {i?.name}
-                  </option>
-                ))}
-              </select>
+                onData={orderStatusOptions?.paymentStatus}
+                isValue
+              />
               <p style={{ marginTop: "5px", color: "red" }}>
                 {errors.payment_status &&
                   touched.payment_status &&
                   errors.payment_status}
               </p>
-              <label className={style.label}>Order</label>
-
-              <select
-                className="form-select"
-                aria-label="Default select example"
+              <InputSelect
+                label="Order"
                 name="order_status"
-                onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.order_status}
+                onChange={handleChange}
+                values={values.order_status}
                 placeholder="Order Status"
-              >
-                <option hidden>Select Order Status</option>
-                {orderStatusOptions?.orderStatus?.map((i) => (
-                  <option key={i?.value} value={i?.value}>
-                    {i?.name}
-                  </option>
-                ))}
-              </select>
+                onData={orderStatusOptions?.orderStatus}
+                isValue
+              />
               <p style={{ marginTop: "5px", color: "red" }}>
                 {errors.order_status &&
                   touched.order_status &&
                   errors.order_status}
               </p>
               {deliveryMan && (
-                <>
-                  <label className={style.label}>Assign Delivery Man</label>
-                  <select
-                    className="form-select"
-                    aria-label="Default select example"
-                    name="order_status"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.order_status}
-                    placeholder="Order Status"
-                  >
-                    <option hidden>Assign Delivery Man</option>
-                    {orderStatusOptions?.deliveryMan?.map((i) => (
-                      <option key={i?.id} value={i?.id}>
-                        {i?.name}
-                      </option>
-                    ))}
-                  </select>
-                  <p style={{ marginTop: "5px", color: "red" }}>
-                    {errors.order_status &&
-                      touched.order_status &&
-                      errors.order_status}
-                  </p>
-                </>
+                 <InputSelect
+                 label="Assign Delivery Man"
+                 name="delivery_man_id"
+                 onBlur={handleBlur}
+                 onChange={handleChange}
+                 values={values.delivery_man_id}
+                 placeholder="Assign Delivery Man"
+                 onData={deliveryMan}
+               />
               )}
             </form>
             <div className={style.btnWrapper}>

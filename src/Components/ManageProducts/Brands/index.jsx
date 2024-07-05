@@ -62,10 +62,6 @@ export const Brands = () => {
     setUpdateBrand(!updateBrand);
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -88,6 +84,7 @@ export const Brands = () => {
         tableHeadings={BrandsTableHeading}
         onBrandsData={data}
         onUpdate={handleUpdateBrand}
+        length={data?.brands?.length === 0}
       />
       {createbrand && (
         <Popup open={createbrand} onClose={handleCreateBrand}>

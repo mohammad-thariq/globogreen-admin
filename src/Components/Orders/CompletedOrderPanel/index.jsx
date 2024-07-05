@@ -10,7 +10,6 @@ import { OrdersApi } from "@/service/orders/ordersAPI";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { useMutation, useQuery } from "react-query";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 
 export const CompletedOrderPanel = () => {
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
@@ -69,9 +68,6 @@ export const CompletedOrderPanel = () => {
     return <Loader />
   }
 
-  if(data && !data?.orders?.data?.length >= 1){
-    return <NoDataFound />
-  }
 
   return (
     <>
@@ -82,6 +78,7 @@ export const CompletedOrderPanel = () => {
         onNavigate={handleNavigateOrder}
         onUpdate={handleDeliveryForm}
         tableHeadings={AllOrderTableHeadings}
+        length={data?.orders?.data?.length === 0}
         isShown
       />
       {openDeletePopup && (

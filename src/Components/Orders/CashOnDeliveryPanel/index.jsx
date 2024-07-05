@@ -10,7 +10,6 @@ import { OrdersApi } from "@/service/orders/ordersAPI";
 import { useMutation, useQuery } from "react-query";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 
 export const CashOnDeliveryPanel = () => {
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
@@ -68,10 +67,6 @@ export const CashOnDeliveryPanel = () => {
     return <Loader />
   }
 
-  if(data && !data?.orders?.data?.length >= 1){
-    return <NoDataFound />
-  }
-
   return (
     <>
       <Breadcrumb currentPage={"Cash On Delivery"} serachEnable />
@@ -81,6 +76,7 @@ export const CashOnDeliveryPanel = () => {
         onNavigate={handleNavigateOrder}
         onUpdate={handleDeliveryForm}
         tableHeadings={AllOrderTableHeadings}
+        length={data?.orders?.data?.length === 0}
         isShown
       />
       {openDeletePopup && (

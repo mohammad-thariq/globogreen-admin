@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import { Breadcrumb } from "../../../common/Breadcrumb";
-import { NoDataFound } from "@/common/NoDataFound";
 import { BaseTable } from "@/common/BaseTable";
 import { useMutation, useQuery } from "react-query";
 import { OrdersApi } from "@/service/orders/ordersAPI";
@@ -72,10 +71,6 @@ export const ProgressOrderPanel = () => {
     return <Loader />
   }
 
-  if(data && !data?.orders?.data?.length >= 1){
-    return <NoDataFound />
-  }
-
   return (
     <>
       <Breadcrumb currentPage={"Progress Orders"} serachEnable />
@@ -87,6 +82,7 @@ export const ProgressOrderPanel = () => {
             onNavigate={handleNavigateOrder}
             onUpdate={handleDeliveryForm}
             tableHeadings={AllOrderTableHeadings}
+            length={data?.orders?.data?.length === 0}
             isShown
           />
           {openDeletePopup && (

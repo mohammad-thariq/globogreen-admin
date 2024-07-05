@@ -35,22 +35,18 @@ export const FeaturedCategories = () => {
   const handleCreateFeaturedCategory = () => {
     setFeaturedCategoryOpen(!featuredCategoryOpen);
   };
-  
-  if (data && !data) {
-    return <NoDataFound />
-  }
 
   if (isLoading) {
     return <Loader />
   }
-
+  
   return (
     <>
       <Breadcrumb currentPage={"Featured Categories"} serachEnable />
       <ExisitngBanner
-      loading={loadingProductCategory}
+        loading={loadingProductCategory}
         sidebarBanner="Featured Category Sidebar Banner"
-        img={`${BaseUrls?.IMAGE_URL}/${currentFeaturedCategoryBanner?.category?.image}`}
+        img={`${BaseUrls?.IMAGE_URL}/${data?.banner?.featured_category_banner}`}
         alt={"Featured side bar"}
       />
       <div className="flex ms-4">
@@ -68,6 +64,7 @@ export const FeaturedCategories = () => {
         tableHeadings={featuredCategoryTableHeading}
         onfeaturedCategoryData={data?.featuredCategories}
         onDelete={handleDeletePopularCategories}
+        length={data?.featuredCategories?.length === 0}
       />
       {deletePopularCategories && (
         <Popup

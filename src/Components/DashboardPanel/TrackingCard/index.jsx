@@ -12,7 +12,7 @@ export const TrackingCard = (props) => {
                       {name}
                     </p>
                     <h5 className="font-weight-bolder mb-0">
-                      {count}
+                      {count || 0}
                       <span className="text-success text-sm font-weight-bolder">
                         
                       </span>

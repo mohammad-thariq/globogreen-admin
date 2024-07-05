@@ -74,10 +74,6 @@ export const PendingOrderPanel = () => {
     return <Loader />
   }
 
-  if(data && !data?.orders?.data?.length >= 1){
-    return <NoDataFound />
-  }
-
   return (
     <>
       <Breadcrumb currentPage={"Pending Orders"} serachEnable />
@@ -87,6 +83,7 @@ export const PendingOrderPanel = () => {
             onNavigate={handleNavigateOrder}
             onUpdate={handleDeliveryForm}
             tableHeadings={AllOrderTableHeadings}
+            length={data?.orders?.data?.length === 0}
             isShown
           />
       {openDeletePopup && (

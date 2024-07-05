@@ -106,14 +106,11 @@ export const MegaMenuCategories = () => {
     deleteMegaMenuCategoryMutate({ id: currentMegaMenuCategoryId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
 
+  console.log(data);
   return (
     <>
       <Breadcrumb currentPage={"Mega Menu Categories"} serachEnable />
@@ -133,6 +130,7 @@ export const MegaMenuCategories = () => {
         onMegaMenuCategoriesData={data}
         onUpdate={handleUpdateMegaMenuCategories}
         onDelete={handleDeleteOrder}
+        length={data?.categories?.length === 0}
       />
       {createMegaMenuCategories && (
         <Popup
@@ -140,7 +138,7 @@ export const MegaMenuCategories = () => {
           onClose={handleCreateMegaMenuCategories}
         >
           <MegaMenuCategoriesForm
-            getCategory={getCategory}
+            getCategory={getCategory?.categories}
             onClose={handleCreateMegaMenuCategories}
             button="Add New"
             onSave={createMegaMenuCategoryMutate}
@@ -154,7 +152,7 @@ export const MegaMenuCategories = () => {
           onClose={handleUpdateMegaMenuCategories}
         >
           <MegaMenuCategoriesForm
-            getCategory={getCategory}
+            getCategory={getCategory?.categories}
             onClose={handleUpdateMegaMenuCategories}
             button="Update"
             onUpdate={updateMegaMenuCategoryMutate}

@@ -5,7 +5,7 @@ import style from "../index.module.css";
 import { InputSelect } from "../../common/inputSelect";
 import { statusConstantOption } from "@/constant/statusConst";
 
-export const MegaMenuSubCategoriesForm = ({
+export const MegaMenuCategoriesForm = ({
   onClose,
   button,
   data,
@@ -16,17 +16,16 @@ export const MegaMenuSubCategoriesForm = ({
   loading,
 }) => {
   const schema = Yup.object({
-    sub_category: Yup.string().required("Category is Required"),
+    category: Yup.string().required("Category is Required"),
     serial: Yup.string().required("Serial is Required"),
     status: Yup.string().required("Status is Required"),
   });
-  console.log(data, 'data');
   return (
     <div className={style.wrapper}>
       <Formik
         initialValues={{
-          sub_category: data?.id || "",
-          serial: data?.id || "",
+          category: data?.category_id || "",
+          serial: data?.serial || "",
           status: data?.status + 1 || "",
         }}
         validationSchema={schema}
@@ -34,12 +33,12 @@ export const MegaMenuSubCategoriesForm = ({
           onUpdate
             ? onUpdate({
                 id: currentMegaMenuCategoryId,
-                sub_category: values?.sub_category,
+                category: values?.category,
                 serial: values?.serial,
                 status: values?.status - 1,
               })
             : onSave({
-                sub_category: values?.sub_category,
+                category: values?.category,
                 serial: values?.serial,
                 status: values?.status - 1,
               });
@@ -56,15 +55,15 @@ export const MegaMenuSubCategoriesForm = ({
         }) => (
           <form>
             <InputSelect
-              label="Sub Category"
-              values={values?.sub_category}
-              name="sub_category"
+              label="Category"
+              values={values?.category}
+              name="category"
               onBlur={handleBlur}
               onChange={handleChange}
               onData={getCategory}
             />
             <p style={{ marginTop: "5px", marginBottom: "5px", color: "red" }}>
-              {errors.sub_category && touched.sub_category && errors.sub_category}
+              {errors.category && touched.category && errors.category}
             </p>
 
             <label>Serial</label>

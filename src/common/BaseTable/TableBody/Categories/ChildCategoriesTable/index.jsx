@@ -20,7 +20,7 @@ export const ChildCategoriesTable = (props) => {
           <tr key={index}>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item.id}
+                {index + 1}
               </span>
             </td>
             <td className="align-middle text-center">
@@ -41,19 +41,18 @@ export const ChildCategoriesTable = (props) => {
             </td>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item.sub_category.name}
+                {item.sub_category?.name}
               </span>
             </td>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item.category.name}
+                {item.category?.name}
               </span>
             </td>
             <td className="align-middle text-center">
               <ProductStatus status={item?.status} />
             </td>
             <td className="align-middle text-center">
-              <td className="align-middle text-center">
                 <span className="text-secondary text-sm font-weight-bold cursor-pointer">
                   <span>
                     <EditNoteIcon
@@ -67,11 +66,10 @@ export const ChildCategoriesTable = (props) => {
                   <span>
                     <DeleteIcon
                       sx={{ fontSize: 20 }}
-                      onClick={() => props?.onDelete()}
+                      onClick={() => props?.onDelete(item.id)}
                     />
                   </span>
-                </span>{" "}
-              </td>
+                </span>{" "} 
             </td>
           </tr>
         ))}

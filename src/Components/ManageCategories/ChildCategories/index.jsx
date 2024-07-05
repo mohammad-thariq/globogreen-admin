@@ -75,13 +75,13 @@ export const ChildCategories = () => {
   } = useMutation(deleteProductChildCategory, {
     onSuccess: (data, variables, context) => {
       setOpenDeletePopup(false);
-      ToastifySuccess(data?.message);
+      ToastifySuccess(data?.notification);
       refetch();
       
     },
     onError: (data, variables, context) => {
       setOpenDeletePopup(true);
-      ToastifyFailed(data?.message);
+      ToastifyFailed(data?.notification);
       refetch();
      
     },
@@ -108,10 +108,6 @@ export const ChildCategories = () => {
     deleteChildCategoryMutate({ id: currentChildCategoryId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -136,6 +132,7 @@ export const ChildCategories = () => {
         onChildCategoriesData={data}
         onDelete={handleDeleteOrder}
         onUpdate={handleUpdateChildCategories}
+        length={data?.childCategories?.length === 0}
       />
 
       {createChildCategories && (

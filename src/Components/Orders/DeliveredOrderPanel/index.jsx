@@ -10,7 +10,6 @@ import { OrdersApi } from "@/service/orders/ordersAPI";
 import { useMutation, useQuery } from "react-query";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 
 export const DeliveredOrderPanel = () => {
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
@@ -73,11 +72,7 @@ export const DeliveredOrderPanel = () => {
   if(isLoading){
     return <Loader />
   }
-
-  if(data && !data?.orders?.data?.length >= 1){
-    return <NoDataFound />
-  }
-
+  
   return (
     <>
       <Breadcrumb currentPage={"Delivered Orders"} serachEnable />
@@ -87,6 +82,7 @@ export const DeliveredOrderPanel = () => {
             onNavigate={handleNavigateOrder}
             onUpdate={handleDeliveryForm}
             tableHeadings={AllOrderTableHeadings}
+            length={data?.orders?.data?.length === 0}
             isShown
           />
       {openDeletePopup && (

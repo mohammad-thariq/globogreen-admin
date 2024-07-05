@@ -10,7 +10,6 @@ import {  useQuery } from "react-query";
 import { BaseUrls } from "../../../../env";
 import { CategoryAddForm } from "@/common/Form/ManageCategoriesForms/CategoriesAddForm";
 import { popularCateoryTableHeading } from "@/constant/tableHeading";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 
 export const PopularCategories = () => {
@@ -38,22 +37,17 @@ export const PopularCategories = () => {
     setActivePopularCategory(getActiveCategory)
   }, [categories?.categories, categories?.pupoularCategory?.id, data?.popularCategories])
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
-
+console.log(data, 'data');
   return (
     <>
       <Breadcrumb currentPage={"Popular Categories"} serachEnable />
-     
       <ExisitngBanner
       loading={loadingProductCategory}
         sidebarBanner="Popular Category Sidebar Banner"
-        img={`${BaseUrls?.IMAGE_URL}/${currentPopularCategoryBanner?.category?.image}`}
+        img={`${BaseUrls?.IMAGE_URL}/${data?.banner?.popular_category_banner}`}
         alt={"Popular side bar"}
       />
   
@@ -72,6 +66,7 @@ export const PopularCategories = () => {
         tableHeadings={popularCateoryTableHeading}
         onPopularCategoriesData={data?.popularCategories}
         onDelete={handleDeletePopularCategories}
+        length={data?.popularCategories?.length === 0}
       />
       {deletePopularCategories && (
         <Popup

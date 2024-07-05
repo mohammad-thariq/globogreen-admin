@@ -68,13 +68,13 @@ export const SubCategories = () => {
   } = useMutation(deleteProductSubCategory, {
     onSuccess: (data, variables, context) => {
       setOpenDeletePopup(false);
-      ToastifySuccess(data?.message);
+      ToastifySuccess(data?.notification);
       refetch();
       
     },
     onError: (data, variables, context) => {
       setOpenDeletePopup(true);
-      ToastifyFailed(data?.message);
+      ToastifyFailed(data?.notification);
       refetch();
      
     },
@@ -101,10 +101,6 @@ export const SubCategories = () => {
     deleteSubCategoryMutate({ id: currentSubCategoryId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -128,6 +124,7 @@ export const SubCategories = () => {
         onSubCategoriesData={data}
         onDelete={handleDeleteOrder}
         onUpdate={handleUpdateSubCategories}
+        length={data?.subCategories?.length === 0}
       />
 
       {createSubCategories && (

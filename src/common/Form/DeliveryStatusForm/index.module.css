@@ -1,8 +1,8 @@
 .wrapper {
-    padding: 60px 30px;
+    padding: 40px 30px;
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 360px;
     justify-content: center;
   }
   .btnWrapper {

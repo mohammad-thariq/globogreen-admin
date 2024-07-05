@@ -1,9 +1,10 @@
 import { BaseTable } from "@/common/BaseTable";
 import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
-import { MegaMenuCategoriesForm } from "@/common/Form/ManageCategoriesForms/MegaMenuCategoriesForm";
+import { MegaMenuSubCategoriesForm } from "@/common/Form/ManageCategoriesForms/MegaMenuCategoriesForm";
 import { Loader } from "@/common/Loader";
 import { NoDataFound } from "@/common/NoDataFound";
+import { PageHeader } from "@/common/PageHeader";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { MegaMenuSubCategoryTableHeading } from "@/constant/tableHeading";
@@ -36,7 +37,6 @@ export const MegaMenuSubCategories = () => {
     ["product-sub-category"],
     productSubCategory
   );
-  console.log(data, "data");
 
   useEffect(() => {
     if (data) {
@@ -118,16 +118,13 @@ export const MegaMenuSubCategories = () => {
     deleteMegaMenuCategoryMutate({ id: currentMegaMenuSubCategoryId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (
     <>
+      <PageHeader title="Mega Menu Sub Categories" />
       <Breadcrumb currentPage={"Mega Menu Sub Categories"} serachEnable />
       <div className="flex ms-4">
         <Button
@@ -145,13 +142,14 @@ export const MegaMenuSubCategories = () => {
         onMegaMenuSubData={megaMenuSubData}
         onUpdate={handleUpdateMegaMenuSubCategories}
         onDelete={handleDeleteOrder}
+        length={megaMenuSubData?.length === 0}
       />
       {createMegaMenuSubCategories && (
         <Popup
           open={createMegaMenuSubCategories}
           onClose={handleCreateMegaMenuSubCategories}
         >
-          <MegaMenuCategoriesForm
+          <MegaMenuSubCategoriesForm
             getCategory={megaMenuSubData}
             onClose={handleCreateMegaMenuSubCategories}
             button="Add New"
@@ -165,7 +163,7 @@ export const MegaMenuSubCategories = () => {
           open={updateMegaMenuSubCategories}
           onClose={handleUpdateMegaMenuSubCategories}
         >
-          <MegaMenuCategoriesForm
+          <MegaMenuSubCategoriesForm
             getCategory={megaMenuSubData}
             onClose={handleUpdateMegaMenuSubCategories}
             button="Update"

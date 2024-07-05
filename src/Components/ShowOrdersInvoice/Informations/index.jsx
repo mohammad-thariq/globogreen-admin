@@ -23,7 +23,7 @@ export const Informations = ({orderDetails}) => {
         <div className="mt-4 mx-lg-4">
           <h6>Order Information : </h6>
           <p className="mb-1">
-            Date: {orderDetails?.order_delivered_date}
+            Date: &nbsp; {orderDetails?.order_delivered_date || "---"}
           </p>
           <p className="mb-1">
             Shipping: {orderDetails?.shipping_method}

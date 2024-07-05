@@ -84,17 +84,17 @@ export const SideNavConst = {
       ],
     },
     {
-      heading: "Product categories",
+      heading: "Manage Product",
       icon: <ProductionQuantityLimitsIcon sx={{ fontSize: 18 }} />,
       subRoutes: [
         {
           name: "Brands",
           url: "/admin/brands",
         },
-        {
-          name: "Product Bulk Import",
-          url: "/admin/product-bulk",
-        },
+        // {
+        //   name: "Product Bulk Import",
+        //   url: "/admin/product-bulk",
+        // },
         {
           name: "Products",
           url: "/admin/products",

@@ -3,7 +3,6 @@ import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
 import { CategoriesForm } from "@/common/Form/ManageCategoriesForms/CategoriesForm";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
@@ -55,13 +54,13 @@ export const Categories = () => {
     useMutation(deleteProductCategory, {
       onSuccess: (data, variables, context) => {
         setOpenDeletePopup(false);
-        ToastifySuccess(data?.message);
+        ToastifySuccess(data?.notification);
         refetch();
         
       },
       onError: (data, variables, context) => {
         setOpenDeletePopup(true);
-        ToastifyFailed(data?.message);
+        ToastifyFailed(data?.notification);
         refetch();
        
       },
@@ -87,13 +86,11 @@ export const Categories = () => {
     deleteCategoryMutate({id: currentCategoryId})
   }
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
+
+  console.log(data, 'data');
 
   return (
     <>
@@ -114,6 +111,7 @@ export const Categories = () => {
         onCategoriesData={data?.categories}
         onDelete={handleDeleteCategory}
         onUpdate={handleUpdateCategoties}
+        length={data?.categories?.length === 0}
       />
 
       {createCategories && (

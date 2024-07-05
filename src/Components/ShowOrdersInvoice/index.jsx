@@ -12,25 +12,65 @@ import { DeliveryStatusForm } from "@/common/Form/DeliveryStatusForm";
 import { Informations } from "./Informations";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { OrdersApi } from "@/service/orders/ordersAPI";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useRouter } from "next/router";
 import { PageHeader } from "@/common/PageHeader";
+import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
+import { Loader } from "@/common/Loader";
+import { DeliveryManAPI } from "@/service/deliveryMan/DeliveryManAPI";
 
-export const ShowOrdersInvoice = ({ orderDetails }) => {
+export const ShowOrdersInvoice = () => {
   const pdfRef = useRef();
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [openOrderStatus, setOpenOrderStatus] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState(null);
   const [hideForPDF, setHideForPDF] = useState(false);
-
   const router = useRouter();
   const id = router?.query?.id;
+  const { getOrderShowById, deleteOrderById, updateOrderById } =
+    new OrdersApi();
+  const { deliveryMan } = new DeliveryManAPI();
+  const { data, isLoading, refetch} = useQuery(["show-order", id], getOrderShowById);
+  const { data: deliveryManData } = useQuery(["delivery-man"], deliveryMan);
 
-  const { getOrderShowById } = new OrdersApi();
-  const { data } = useQuery(["show-order", id], getOrderShowById);
+  const { mutate, isLoading: deleteOrderStatusLoading } = useMutation(
+    deleteOrderById,
+    {
+      onSuccess: (data, variables, context) => {
+        setOpenDeletePopup(false);
+        ToastifySuccess(data?.notification);
+        router.back();
 
-  const handleDeleteOrder = (id) => {
-    setOpenDeletePopup(!openDeletePopup);
-  };
+      },
+      onError: (data, variables, context) => {
+        setOpenDeletePopup(true);
+        ToastifyFailed(data?.notification);
+      },
+    }
+  );
+
+  const { mutate: updateOrderStatus, isLoading: updateOrderStatusLoading } =
+    useMutation(updateOrderById, {
+      onSuccess: (data, variables, context) => {
+        setOpenOrderStatus(false);
+        ToastifySuccess(data?.notification);
+        refetch();
+      },
+      onError: (data, variables, context) => {
+        setOpenOrderStatus(true);
+        ToastifyFailed(data?.notification);
+      },
+    });
+
+    
+    const handleDeleteOrder = () => {
+      setCurrentOrderId(id);
+      setOpenDeletePopup(!openDeletePopup);
+    };
+
+    const deleteOrderStatus = () => {
+      mutate({ id: currentOrderId });
+    };
 
   const handleOpenOrderStatus = () => {
     setOpenOrderStatus(!openOrderStatus);
@@ -44,13 +84,24 @@ export const ShowOrdersInvoice = ({ orderDetails }) => {
     }, 1000);
   };
 
-  console.log(data, 'data');
+  const transformedDeliveryManData = deliveryManData?.deliveryMans.map(
+    (item) => ({
+      id: item.id,
+      name: `${item.fname} ${item.lname}`,
+    })
+  );
+
+  if (isLoading) return <Loader />;
+
   return (
     <>
       <PageHeader
         title={
           hideForPDF
-            ? `Order Invoice ${orderDetails?.order_address?.billing_name}-${orderDetails?.order_address?.billing_email}`
+            ? `Order Invoice ${
+                data?.order?.order_address?.billing_name ||
+                data?.order?.order_id
+              }`
             : "Order Invoice"
         }
       />
@@ -68,27 +119,25 @@ export const ShowOrdersInvoice = ({ orderDetails }) => {
                 alt="globogreenlogo"
               />
               <p className="text-lg fw-bolder color-6c757d mb-1">
-                Order #{orderDetails?.order_id}
+                Order #{data?.order?.order_id}
               </p>
             </div>
-            <BillingAddress
-              orderDetails={orderDetails}
-              name="Billing Address"
-            />
+            <BillingAddress orderDetails={data?.order} name="Billing Address" />
             <ShippingAddress
-              orderDetails={orderDetails}
+              orderDetails={data?.order}
               name="Shipping Address"
             />
 
-            <Informations orderDetails={orderDetails} />
+            <Informations orderDetails={data?.order} />
           </div>
           <BaseTable
             ref={pdfRef}
             tableHeadings={showOrderTableHeadings}
-            onShowOrder={orderDetails}
+            onShowOrder={data?.order}
           />
-          <OrderTotal orderDetails={orderDetails} />
+          <OrderTotal orderDetails={data?.order} />
         </div>
+
         {!hideForPDF && (
           <Actions
             handleOpenOrderStatus={handleOpenOrderStatus}
@@ -97,19 +146,27 @@ export const ShowOrdersInvoice = ({ orderDetails }) => {
           />
         )}
       </div>
+
       {openOrderStatus && (
         <Popup open={openOrderStatus} onClose={handleOpenOrderStatus}>
           <DeliveryStatusForm
             onClose={handleOpenOrderStatus}
-            data={orderDetails}
-            deliveryMan
+            data={data?.order}
+            currentOrderId={data?.order.id}
+            updateOrderStatus={updateOrderStatus}
+            updateOrderStatusLoading={updateOrderStatusLoading}
+            deliveryMan={transformedDeliveryManData}
           />
         </Popup>
       )}
 
       {openDeletePopup && (
         <Popup open={openDeletePopup} onClose={handleDeleteOrder}>
-          <DeleteItem handleDeleteOrder={handleDeleteOrder} />
+          <DeleteItem
+            onClose={handleDeleteOrder}
+            onClick={deleteOrderStatus}
+            loading={deleteOrderStatusLoading}
+          />
         </Popup>
       )}
     </>

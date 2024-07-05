@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Breadcrumb } from "../../../common/Breadcrumb";
 import { BaseTable } from "@/common/BaseTable";
 import { OrdersApi } from "@/service/orders/ordersAPI";
@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import { DeliveryStatusForm } from "@/common/Form/DeliveryStatusForm";
 import { AllOrderTableHeadings } from "@/constant/tableHeading";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 
 export const AllOrdersPanel = () => {
@@ -70,10 +69,6 @@ export const AllOrdersPanel = () => {
     return <Loader />
   }
 
-  if(data && !data?.orders?.data?.length >= 1){
-    return <NoDataFound />
-  }
-
   return (
     <>
       <Breadcrumb currentPage="All Orders" serachEnable />
@@ -83,6 +78,7 @@ export const AllOrdersPanel = () => {
         onNavigate={handleNavigateOrder}
         onUpdate={handleDeliveryForm}
         tableHeadings={AllOrderTableHeadings}
+        length={data?.orders?.data?.length === 0}
         isShown
       />
       {openDeletePopup && (

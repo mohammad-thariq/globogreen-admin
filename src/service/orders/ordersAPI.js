@@ -38,7 +38,7 @@ export class OrdersApi {
     return res;
   };
   getOrderShowById = async ({ queryKey }) => {
-    const res = await _axios("get", `/order-show?token=${getToken()}`, { id: queryKey[1] });
+    const res = await _axios("get", `/order-show/${queryKey[1]}?token=${getToken()}`);
     return res;
   };
 
@@ -52,7 +52,7 @@ export class OrdersApi {
   updateOrderById = async (data) => {
     const res = await _axios(
       "post",
-      `/update-order-status?token=${getToken()}`,
+      `/update-order-status/${data?.id}?token=${getToken()}`,
       { ...data }
     );
     return res;

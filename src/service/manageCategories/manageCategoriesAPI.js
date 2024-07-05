@@ -35,8 +35,7 @@ export class ManageCategoriesApi {
   deleteProductCategory = async (data) => {
     const res = await _axios(
       "delete",
-      `/product-category/delete?token=${getToken()}`,
-      { ...data }
+      `/product-category/${data?.id}?token=${getToken()}`
     );
     return res;
   };
@@ -70,8 +69,7 @@ export class ManageCategoriesApi {
   deleteProductSubCategory = async (data) => {
     const res = await _axios(
       "delete",
-      `/product-sub-category/delete?token=${getToken()}`,
-      { ...data }
+      `/product-sub-category/${data?.id}?token=${getToken()}`
     );
     return res;
   };
@@ -105,8 +103,7 @@ export class ManageCategoriesApi {
   deleteProductChildCategory = async (data) => {
     const res = await _axios(
       "delete",
-      `/product-child-category/delete?token=${getToken()}`,
-      { ...data }
+      `/product-child-category/${data?.id}?token=${getToken()}`
     );
     return res;
   };
