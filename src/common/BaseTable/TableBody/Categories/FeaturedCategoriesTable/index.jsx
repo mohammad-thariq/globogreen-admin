@@ -16,7 +16,7 @@ export const FeaturedCategoriesTable = ({ onfeaturedCategoryData , onDelete}) =>
               <span className="text-secondary text-sm font-weight-bold cursor-pointer">
               <DeleteIcon
                       sx={{ fontSize: 20 }}
-                      onClick={() => onDelete()}
+                      onClick={() => onDelete(item.id)}
                     />
               </span>
             </td>

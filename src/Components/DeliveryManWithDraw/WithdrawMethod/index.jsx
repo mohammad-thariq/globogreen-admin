@@ -3,7 +3,6 @@ import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
 import { DeliveryManWithdrawMethod } from "@/common/Form/DeliveryWithdrawForm/DeliveryManWithdrawMethod";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 import { PageHeader } from "@/common/PageHeader";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
@@ -25,7 +24,6 @@ export const WithdrawMethod = () => {
   const [openCreatePopup, setOpenCreatePopup] = useState(false);
   const [openUpdatePopup, setOpenUpdatePopup] = useState(false);
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
-  console.log(data, "withdrawMethod data");
 
   const {
     mutate: createWithdrawMethodMutate,
@@ -94,10 +92,6 @@ export const WithdrawMethod = () => {
     DeleteWithdrawMethodMutate ({ id: currentWithdrawMethodId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />;
-  }
-
   if (isLoading) {
     return <Loader />;
   }
@@ -122,6 +116,7 @@ export const WithdrawMethod = () => {
         onWithdrawMethodData={data}
         onDelete={handleDeleteWithDrawMethod}
         onUpdate={handleUpdateWithDrawMethod}
+        length={data[0]?.length === 0}
       />
       {openCreatePopup && (
         <Popup open={openCreatePopup} onClose={handleCreateWithDrawMethod}>

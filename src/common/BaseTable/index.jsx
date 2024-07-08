@@ -41,6 +41,9 @@ import { Service } from "./TableBody/ManageWebsite/Service";
 import { HomePageSessionTitle } from "./TableBody/ManageWebsite/HomePageSessionTitle";
 import { MailTemplate } from "./TableBody/EmailConfig/EmailTemplate/mainTemplate";
 import { NoDataFound } from "../NoDataFound";
+import { ProductDetails } from "./TableBody/Products/ProductDetailsTable";
+import { ProductVariant } from "./TableBody/Products/ProductVariantTable";
+import { ProductVariantItem } from "./TableBody/Products/ProductVariantItemTable";
 // import ReactPaginate from "react-paginate";
 // import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 // import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
@@ -63,6 +66,7 @@ export const BaseTable = ({
   onDeliveryManData,
   onRecevieAmountData,
   onProductData,
+  onProductDetailsData,
   onCountryData,
   onStateData,
   onCityData,
@@ -91,6 +95,8 @@ export const BaseTable = ({
   onServiceData,
   onHomepageTitleData,
   onMailTemplateData,
+  onProductVariantData,
+  onProductVariantItemData,
 
   // tableDatas ends
 
@@ -128,7 +134,9 @@ export const BaseTable = ({
               <div className="table-responsive p-0">
                 <table className="table align-items-center mb-0">
                   <thead className="text-sm">
-                   {!length && <tr className="font-weight-bold">{tableHeadingList}</tr>}
+                    {!length && (
+                      <tr className="font-weight-bold">{tableHeadingList}</tr>
+                    )}
                   </thead>
                   <tbody>
                     {isShown && (
@@ -208,6 +216,7 @@ export const BaseTable = ({
                         onSellerProductData={onSellerProductData}
                         onUpdate={onUpdate}
                         onDelete={onDelete}
+                        onNavigate={onNavigate}
                       />
                     )}
                     {onProductData && (
@@ -215,6 +224,30 @@ export const BaseTable = ({
                         onProductData={onProductData}
                         onUpdate={onUpdate}
                         onDelete={onDelete}
+                        onNavigate={onNavigate}
+                      />
+                    )}
+                    {onProductDetailsData && (
+                      <ProductDetails
+                        onProductDetailsData={onProductDetailsData}
+                        onDelete={onDelete}
+                        onUpdate={onUpdate}
+                      />
+                    )}
+                    {onProductVariantData && (
+                      <ProductVariant
+                        onProductVariantData={onProductVariantData}
+                        onDelete={onDelete}
+                        onUpdate={onUpdate}
+                        onNavigate={onNavigate}
+                      />
+                    )}
+                    {onProductVariantItemData && (
+                      <ProductVariantItem
+                        onProductVariantItemData={onProductVariantItemData}
+                        onDelete={onDelete}
+                        onUpdate={onUpdate}
+                        onNavigate={onNavigate}
                       />
                     )}
                     {onCountryData && (
@@ -279,13 +312,6 @@ export const BaseTable = ({
                     {onWithDrawData && (
                       <WithDraw
                         onWithDrawData={onWithDrawData}
-                        onDelete={onDelete}
-                      />
-                    )}
-                    {onWithdrawMethodData && (
-                      <WithDrawMethod
-                        onWithdrawMethodData={onWithdrawMethodData}
-                        onUpdate={onUpdate}
                         onDelete={onDelete}
                       />
                     )}

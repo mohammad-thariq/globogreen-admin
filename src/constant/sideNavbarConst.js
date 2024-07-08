@@ -107,10 +107,10 @@ export const SideNavConst = {
           name: "Seller Products",
           url: "/admin/seller-products",
         },
-        {
-          name: "Awaiting For Approval",
-          url: "/admin/awaiting-approval",
-        },
+        // {
+        //   name: "Awaiting For Approval",
+        //   url: "/admin/awaiting-approval",
+        // },
         {
           name: "Specification Key",
           url: "/admin/specification",

@@ -8,7 +8,7 @@ export const WithDraw = ({ onWithDrawData , onDelete}) => {
           <tr key={index}>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item?.id}
+              {index + 1}
               </span>
             </td>
             <td className="align-middle text-center">

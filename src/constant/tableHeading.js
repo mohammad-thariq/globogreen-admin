@@ -280,5 +280,10 @@ export const PendingSellerTableHeading = [
   export const contactMessageTablHeading=["SN",	"Name",	"Email"	,"Phone"	,"Subject",	"Message", "Action"]
 
   export const homePageSessionTableHeading = ["Default" , "Action"]
+  export const deliverymanDetailsTableHeading = ["Title" , "Details"]
+  export const productDetailsTableHeading = ["Image" , "Status", "Action"]
+  export const productVariantTableHeading = ["SN" , "Name", "Status", "Action"]
+  export const productVariantItemTableHeading = ["SN" , "Variant", "Item", "Price", "Action"]
+
 
   

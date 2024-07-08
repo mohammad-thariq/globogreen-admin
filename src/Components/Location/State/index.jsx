@@ -9,7 +9,6 @@ import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { StateForm } from "@/common/Form/LocationForm/StateForm";
 import { StateTableHeading } from "@/constant/tableHeading";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 
 export const State = () => {
@@ -90,10 +89,6 @@ export const State = () => {
     DeleteStateMutate({ id: currentStateId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -117,6 +112,7 @@ export const State = () => {
         onStateData={data}
         onDelete={handleDeleteLocation}
         onUpdate={handleUpdateLocation}
+        length={data?.states?.length === 0}
       />
 
       {openCreatePopup && (

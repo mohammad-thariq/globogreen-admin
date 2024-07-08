@@ -9,7 +9,6 @@ import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 
 export const DeliveryMan = () => {
@@ -21,11 +20,11 @@ export const DeliveryMan = () => {
   } = new DeliveryManAPI();
   const [currentDeliveryManId, setCurrentDeliveryManId] = useState(null);
   const [currentDeliveryManData, setCurrentDeliveryManData] = useState(null);
-  const { data,isLoading, refetch } = useQuery(["deliveryMan"], deliveryMan);
   const [openCreatePopup, setOpenCreatePopup] = useState(false);
   const [openUpdatePopup, setOpenUpdatePopup] = useState(false);
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
-  console.log(data, "deliveryMan Data");
+
+  const { data,isLoading, refetch } = useQuery(["deliveryMan"], deliveryMan);
 
   const {
     mutate: createDeliveryManMutate,
@@ -94,10 +93,6 @@ export const DeliveryMan = () => {
     DeleteDeliveryManMutate({ id: currentDeliveryManId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -121,6 +116,7 @@ export const DeliveryMan = () => {
         onDeliveryManData={data}
         onDelete={handleDeleteDeliveryMan}
         onUpdate={handleUpdateDeliveryMan}
+        length={data?.deliveryMans?.length === 0}
       />
       {openCreatePopup && (
         <Popup open={openCreatePopup} onClose={handleCreateDeliveryMan}>

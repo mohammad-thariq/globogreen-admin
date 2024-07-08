@@ -3,7 +3,6 @@ import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
 import { RecevieAmountForm } from "@/common/Form/DeliveryManForm/RecevieAmountForm";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
@@ -66,13 +65,11 @@ export const RecevieAmount = () => {
   const handleOnDeleteReceiveAmount = () => {
     DeleteRecevieAmountMutate({ id: currentRecevieAmountId });
   };
+
   if (isLoading) {
     return <Loader />;
   }
 
-  if(data && data){
-    return <NoDataFound />
-  }
   return (
     <>
       <Breadcrumb currentPage={"Receive Amount"} serachEnable />
@@ -91,6 +88,7 @@ export const RecevieAmount = () => {
         tableHeadings={reciveAmountTableheading}
         onRecevieAmountData={data}
         onDelete={handleDeleteReceiveAmount}
+        length={data?.orderAmounts?.length === 0}
       />
       {openCreatePopup && (
         <Popup open={openCreatePopup} onClose={handleCreateReceiveAmount}>

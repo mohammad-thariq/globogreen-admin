@@ -473,3 +473,35 @@ export const getCountryCode = [
   { name: "Zimbabwe +263",  code: "ZW" }
 ]
 
+export const deliveryManDetailsTracker = [
+    {
+        id: 1,
+        name: "Current product Balance",
+        countKey: "currentProductBalance",
+        icon: "ni ni-money-coins text-lg opacity-10"
+    },
+    {
+        id: 2,
+        name: "Completed Order",
+        countKey: "completedOrder",
+        icon: "ni ni-world text-lg opacity-10"
+    },
+    {
+        id: 3,
+        name: "Running Order",
+        countKey: "runningOrders",
+        icon: "ni ni-paper-diploma text-lg opacity-10"
+    },
+    {
+        id: 4,
+        name: "Total Earn",
+        countKey: "totalEarn",
+        icon: "ni ni-cart text-lg opacity-10"
+    },
+    {
+        id: 5,
+        name: "Total widthdraw",
+        countKey: "totalProduct",
+        icon: "ni ni-money-coins text-lg opacity-10"
+    }
+]

@@ -6,11 +6,11 @@ export const PendingWithdraw = ({ onPendingWithdrawData, onDelete }) => {
   return (
     <>
       {onPendingWithdrawData &&
-        onPendingWithdrawData?.map((item, index) => (
+        onPendingWithdrawData[0]?.map((item, index) => (
           <tr key={index}>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item?.id}
+                {index + 1}
               </span>
             </td>
             <td className="align-middle text-center">

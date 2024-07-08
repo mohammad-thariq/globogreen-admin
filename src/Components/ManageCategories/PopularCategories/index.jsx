@@ -6,23 +6,82 @@ import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { useEffect, useState } from "react";
 import { ExisitngBanner } from "../ExistingBanner";
 import { ManageCategoriesApi } from "@/service/manageCategories/manageCategoriesAPI";
-import {  useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { BaseUrls } from "../../../../env";
 import { CategoryAddForm } from "@/common/Form/ManageCategoriesForms/CategoriesAddForm";
 import { popularCateoryTableHeading } from "@/constant/tableHeading";
 import { Loader } from "@/common/Loader";
+import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 
 export const PopularCategories = () => {
-  const [deletePopularCategories, setDeletePopularCategories] = useState(false);
   const [createPopularCategories, setCreatePopularCategories] = useState(false);
-  const [currentPopularCategoryBanner, setCurrentPopularCategoryBanner] = useState(null)
-  const [activePopularCategory, setActivePopularCategory] = useState(null)
-  const {popularCategory, productCategory} = new ManageCategoriesApi()
-  const {data, isLoading, refetch} = useQuery(['popular-categories'], popularCategory)
-  const { data: categories, isLoading: loadingProductCategory } = useQuery(["product-category"], productCategory);
+  const [deletePopularCategories, setDeletePopularCategories] = useState(false);
+  const [currentPopularCategoryBanner, setCurrentPopularCategoryBanner] =
+    useState(null);
+  const [currentPopularCategoryId, setCurrentPopularCategoryId] =
+    useState(null);
+  const [activePopularCategory, setActivePopularCategory] = useState(null);
 
+  const { popularCategory, productCategory, deletePopularCategory, createPopularCategoryBanner, createPopularCategory } =
+    new ManageCategoriesApi();
+
+  const { data, isLoading, refetch } = useQuery(
+    ["popular-categories"],
+    popularCategory
+  );
+  const { data: categories, isLoading: loadingProductCategory } = useQuery(
+    ["product-category"],
+    productCategory
+  );
+
+  const {
+    mutate: createPopularCategoryMutate,
+    isLoading: createPopularCategoryLoading,
+  } = useMutation(createPopularCategory, {
+    onSuccess: (data, variables, context) => {
+      setCreatePopularCategories(false);
+      ToastifySuccess(data?.notification);
+      refetch();
+    },
+    onError: (data, variables, context) => {
+      setCreatePopularCategories(true);
+      ToastifyFailed(data?.notification);
+      refetch();
+    },
+  });
+
+  const {
+    mutate: createPopularCategoryBannerMutate,
+    isLoading: createPopularCategoryBannerLoading,
+  } = useMutation(createPopularCategoryBanner, {
+    onSuccess: (data, variables, context) => {
+      ToastifySuccess(data?.notification);
+      refetch();
+    },
+    onError: (data, variables, context) => {
+      ToastifyFailed(data?.notification);
+      refetch();
+    },
+  });
+
+  const {
+    mutate: deletePopularCategoryMutate,
+    isLoading: deletePopularCategoryLoading,
+  } = useMutation(deletePopularCategory, {
+    onSuccess: (data, variables, context) => {
+      setDeletePopularCategories(false);
+      ToastifySuccess(data?.notification);
+      refetch();
+    },
+    onError: (data, variables, context) => {
+      setDeletePopularCategories(true);
+      ToastifyFailed(data?.notification);
+      refetch();
+    },
+  });
 
   const handleDeletePopularCategories = (id) => {
+    setCurrentPopularCategoryId(id);
     setDeletePopularCategories(!deletePopularCategories);
   };
 
@@ -30,27 +89,41 @@ export const PopularCategories = () => {
     setCreatePopularCategories(!createPopularCategories);
   };
 
+  const handleOnDeletePopularCategoryMutate = () => {
+    deletePopularCategoryMutate({ id: currentPopularCategoryId });
+  };
+
   useEffect(() => {
-    const getCurrentCategory = data?.popularCategories?.find((i) => ( i?.id === categories?.pupoularCategory?.id))
-    setCurrentPopularCategoryBanner(getCurrentCategory)
-    const getActiveCategory = categories?.categories?.filter((i) => i?.status === 1)
-    setActivePopularCategory(getActiveCategory)
-  }, [categories?.categories, categories?.pupoularCategory?.id, data?.popularCategories])
+    const getCurrentCategory = data?.popularCategories?.find(
+      (i) => i?.id === categories?.pupoularCategory?.id
+    );
+    setCurrentPopularCategoryBanner(getCurrentCategory);
+    const getActiveCategory = categories?.categories?.filter(
+      (i) => i?.status === 1
+    );
+    setActivePopularCategory(getActiveCategory);
+  }, [
+    categories?.categories,
+    categories?.pupoularCategory?.id,
+    data?.popularCategories,
+  ]);
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
-console.log(data, 'data');
+
   return (
     <>
-      <Breadcrumb currentPage={"Popular Categories"} serachEnable />
+      <Breadcrumb currentPage={"Popular Category"} serachEnable />
       <ExisitngBanner
-      loading={loadingProductCategory}
+        loading={loadingProductCategory}
         sidebarBanner="Popular Category Sidebar Banner"
         img={`${BaseUrls?.IMAGE_URL}/${data?.banner?.popular_category_banner}`}
         alt={"Popular side bar"}
+        onSave={createPopularCategoryBannerMutate}
+        onLoading={createPopularCategoryBannerLoading}
       />
-  
+
       <div className="flex ms-4">
         <Button
           name="Add New"
@@ -62,26 +135,35 @@ console.log(data, 'data');
           onClick={handlePopularCategories}
         />
       </div>
+
       <BaseTable
         tableHeadings={popularCateoryTableHeading}
         onPopularCategoriesData={data?.popularCategories}
         onDelete={handleDeletePopularCategories}
         length={data?.popularCategories?.length === 0}
       />
+
       {deletePopularCategories && (
         <Popup
           open={deletePopularCategories}
           onClose={handleDeletePopularCategories}
         >
-          <DeleteItem onClose={handleDeletePopularCategories} />
+          <DeleteItem
+            onClose={handleDeletePopularCategories}
+            onClick={handleOnDeletePopularCategoryMutate}
+            loading={deletePopularCategoryLoading}
+          />
         </Popup>
       )}
       {createPopularCategories && (
         <Popup open={createPopularCategories} onClose={handlePopularCategories}>
           <CategoryAddForm
-          title="Add Popular category"
-          categories={activePopularCategory}
-          onClose={handlePopularCategories}
+            title="Add Popular category"
+            categories={activePopularCategory}
+            loading={createPopularCategoryLoading}
+            onClose={handlePopularCategories}
+            onSave={createPopularCategoryMutate}
+            
           />
         </Popup>
       )}

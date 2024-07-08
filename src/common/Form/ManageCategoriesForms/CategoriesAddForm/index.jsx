@@ -7,7 +7,9 @@ import { InputSelect } from "../../common/inputSelect";
 export const CategoryAddForm = ({
   onClose,
   categories,
-  title
+  title,
+  onSave,
+  loading,
 }) => {
   const schema = Yup.object({
     category: Yup.string().required("category is Required"),
@@ -22,7 +24,7 @@ export const CategoryAddForm = ({
         validationSchema={schema}
         onSubmit={(values, actions) => {
           onSave({
-            category: values?.category,
+            category: Number(values?.category),
           });
           actions.setSubmitting(true);
         }}
@@ -35,11 +37,11 @@ export const CategoryAddForm = ({
           handleBlur,
           handleSubmit,
         }) => (
-          <form >
+          <form>
             <h3>{title}</h3>
-            <InputSelect 
-            label="Category"
-            name="category"
+            <InputSelect
+              label="Category"
+              name="category"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.category}
@@ -55,7 +57,14 @@ export const CategoryAddForm = ({
                 color="#000"
                 onClick={onClose}
               />
-              <Button name="Save" bg="#23d24f" type="submit" color="#fff" onClick={handleSubmit}/>
+              <Button
+                name="Save"
+                bg="#23d24f"
+                type="submit"
+                color="#fff"
+                isSubmitting={loading}
+                onClick={handleSubmit}
+              />
             </div>
           </form>
         )}

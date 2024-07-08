@@ -3,7 +3,6 @@ import { Breadcrumb } from "@/common/Breadcrumb";
 import { withdrawPaymentAPI } from "@/service/withdrawPayment/withdrawPaymentAPI";
 import { sellerWithdrawTableHeading } from "@/constant/tableHeading";
 import { useMutation, useQuery } from "react-query";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { Popup } from "@/common/Popup";
@@ -48,12 +47,6 @@ export const SellerWithdrawMethod = () => {
     DeleteSellerWithdrawMutate({ id: currentSellerWithdrawId });
   };
 
-
-
-  if (data && !data) {
-    return <NoDataFound />;
-  }
-
   if (isLoading) {
     return <Loader />;
   }
@@ -64,6 +57,7 @@ export const SellerWithdrawMethod = () => {
         tableHeadings={sellerWithdrawTableHeading}
         onSellerWithdrawData={data}
         onDelete={handleDeleteSellerWithdraw}
+        length={data?.withdraws?.length === 0}
         
       />
 

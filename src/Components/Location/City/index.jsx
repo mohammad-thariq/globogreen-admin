@@ -3,7 +3,6 @@ import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
 import { CityForm } from "@/common/Form/LocationForm/CityForm";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
@@ -90,10 +89,6 @@ export const City = () => {
     DeleteCityMutate({ id: currentCityId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -118,6 +113,7 @@ export const City = () => {
         getCountry={countryData}
         onDelete={handleDeleteLocation}
         onUpdate={handleUpdateLocation}
+        length={data?.cities?.length === 0}
       />
 
       {openCreatePopup && (

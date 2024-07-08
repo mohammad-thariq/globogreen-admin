@@ -149,4 +149,40 @@ export class ManageCategoriesApi {
     const res = await _axios("get", `/featured-category?token=${getToken()}`);
     return res;
   };
+
+  createPopularCategory = async (data) => {
+    const res = await _axios("post", `/popular-category?token=${getToken()}`, data);
+    return res;
+  };
+
+  createFeaturedCategory = async (data) => {
+    const res = await _axios("post", `/popular-category?token=${getToken()}`, data);
+    return res;
+  };
+
+  createPopularCategoryBanner = async (data) => {
+    const res = await _axios("post", `/popular-category-banner?token=${getToken()}`, data);
+    return res;
+  };
+
+  createFeaturedCategoryBanner = async (data) => {
+    const res = await _axios("post", `/popular-category-banner?token=${getToken()}`, data);
+    return res;
+  };
+
+  deletePopularCategory = async (data) => {
+    const res = await _axios(
+      "delete",
+      `/destroy-popular-category/${data.id}?token=${getToken()}`
+    );
+    return res;
+  };
+
+  deleteFeaturedCategory = async (data) => {
+    const res = await _axios(
+      "delete",
+      `/destroy-featured-category/${data.id}?token=${getToken()}`
+    );
+    return res;
+  };
 }

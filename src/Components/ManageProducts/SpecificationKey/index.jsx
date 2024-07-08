@@ -9,7 +9,6 @@ import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { Popup } from "@/common/Popup";
 import { SpecKeyForm } from "@/common/Form/ProductCategoriesForm/SpecKeyForm";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 
 export const Specification = () => {
@@ -73,10 +72,6 @@ export const Specification = () => {
     setCurrentSpecKeyDataId(getSpecKeyById);
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -102,6 +97,7 @@ export const Specification = () => {
         onDelete={handleDeleteSpecKey}
         onUpdate={handleUpdateSpecKey}
         handleCreateSpecKey={handleCreateSpecKey}
+        length={data?.SpecificationKeys?.length === 0}
       />
       {openDeletePopup && (
         <Popup open={openDeletePopup} onClose={handleDeleteSpecKey}>

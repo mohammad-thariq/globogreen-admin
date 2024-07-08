@@ -12,6 +12,18 @@ export class DeliveryManAPI {
     const res = await _axios("get", `/delivery-man?token=${getToken()}`);
     return res;
   };
+
+  deliveryManById = async ({queryKey}) => {
+    const res = await _axios("get", `/delivery-man-show/${queryKey[1]}?token=${getToken()}`);
+    return res;
+  };
+  
+  deliveryManWidthdrawById = async ({queryKey}) => {
+    const res = await _axios("get", `/show-delivery-man-withdraw/${queryKey[1]}?token=${getToken()}`);
+    return res;
+  };
+
+
   createDeliveryMan = async (data) => {
     const res = await _axios(
       "post",

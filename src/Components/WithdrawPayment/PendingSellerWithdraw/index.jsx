@@ -8,7 +8,6 @@ import { useState } from "react";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 
 export const PendingSellerWithdraw = () => {
@@ -44,10 +43,6 @@ export const PendingSellerWithdraw = () => {
   const handleOnDeletePendingSeller = () => {
     DeletePendingSellerMutate({ id: currentPendingSellerId });
   };
-
-  if (data && !data.withdraws) {
-    return <NoDataFound />;
-  }
 
   if (isLoading) {
     return <Loader />;

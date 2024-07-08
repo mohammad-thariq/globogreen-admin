@@ -3,18 +3,26 @@ import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
 import { ProductForm } from "@/common/Form/ProductCategoriesForm/ProductForm";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { productTableHeading } from "@/constant/tableHeading";
 import { ManageCategoriesApi } from "@/service/manageCategories/manageCategoriesAPI";
 import { productCateoriesAPI } from "@/service/productCategories/productCategoriesAPI";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 
 export const Products = () => {
-  const { products, brands, specificationKey, createProducts, updateProducts, deleteProductById } = new productCateoriesAPI();
+  const router = useRouter();
+  const {
+    products,
+    brands,
+    specificationKey,
+    createProducts,
+    updateProducts,
+    deleteProductById,
+  } = new productCateoriesAPI();
 
   const { productCategory, productChildCategory, productSubCategory } =
     new ManageCategoriesApi();
@@ -42,50 +50,50 @@ export const Products = () => {
   const [currentProductDataId, setCurrentProductDataId] = useState(null);
 
   const { mutate: createProductMutate, isLoading: createProductLoading } =
-  useMutation(createProducts, {
-    onSuccess: (data, variables, context) => {
-      setCreateProduct(false);
-      ToastifySuccess(data?.message);
-      refetch();
-    },
-    onError: (data, variables, context) => {
-      setCreateProduct(true);
-      refetch();
-      ToastifyFailed(data?.message);
-    },
-  });
+    useMutation(createProducts, {
+      onSuccess: (data, variables, context) => {
+        setCreateProduct(false);
+        ToastifySuccess(data?.message);
+        refetch();
+      },
+      onError: (data, variables, context) => {
+        setCreateProduct(true);
+        refetch();
+        ToastifyFailed(data?.message);
+      },
+    });
 
   const { mutate: updateProductMutate, isLoading: updateProductLoading } =
-  useMutation(updateProducts, {
-    onSuccess: (data, variables, context) => {
-      setUpdateProduct(false);
-      ToastifySuccess(data?.message);
-      refetch();
-      
-    },
-    onError: (data, variables, context) => {
-      setUpdateProduct(true);
-      ToastifyFailed(data?.message);
-      refetch();
-     
-    },
-  });
+    useMutation(updateProducts, {
+      onSuccess: (data, variables, context) => {
+        setUpdateProduct(false);
+        ToastifySuccess(data?.message);
+        refetch();
+      },
+      onError: (data, variables, context) => {
+        setUpdateProduct(true);
+        ToastifyFailed(data?.message);
+        refetch();
+      },
+    });
 
-  const { mutate: deleteProductMutate, isLoading: deleteProductLoading } = useMutation(deleteProductById, {
-    onSuccess: (data, variables, context) => {
-      setOpenDeletePopup(false);
-      ToastifySuccess(data?.notification);
-      refetch();
-    },
-    onError: (data, variables, context) => {
-      setOpenDeletePopup(true);
-      ToastifyFailed(data?.notification);
-    },
-  });
+  const { mutate: deleteProductMutate, isLoading: deleteProductLoading } =
+    useMutation(deleteProductById, {
+      onSuccess: (data, variables, context) => {
+        setOpenDeletePopup(false);
+        ToastifySuccess(data?.message);
+        refetch();
+      },
+      onError: (data, variables, context) => {
+        setOpenDeletePopup(true);
+        ToastifyFailed(data?.message);
+      },
+    });
 
   const handleCreateProduct = () => {
     setCreateProduct(!createProduct);
   };
+  
   const handleUpdateProduct = (id) => {
     setUpdateProduct(!updateProduct);
     setCurrentProductId(id);
@@ -96,6 +104,14 @@ export const Products = () => {
   const handleDeleteProduct = (id) => {
     setCurrentProductId(id);
     setOpenDeletePopup(!openDeletePopup);
+  };
+
+  const handleNavigateProductDetail = (id, icon) => {
+    if (icon === "product-variant") {
+      router.push(`/admin/products/product-variant/${id}`);
+    } else {
+      router.push(`/admin/products/${id}`);
+    }
   };
 
   const deleteProduct = () => {
@@ -124,13 +140,9 @@ export const Products = () => {
       name: i?.key,
     }));
 
-    if (data && !data) {
-      return <NoDataFound />
-    }
-  
-    if (isLoading) {
-      return <Loader />
-    }
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -151,6 +163,8 @@ export const Products = () => {
         onProductData={data}
         onUpdate={handleUpdateProduct}
         onDelete={handleDeleteProduct}
+        onNavigate={handleNavigateProductDetail}
+        length={data?.products?.length === 0}
       />
       {createProduct && (
         <Popup open={createProduct} onClose={handleCreateProduct}>
@@ -186,7 +200,11 @@ export const Products = () => {
       )}
       {openDeletePopup && (
         <Popup open={openDeletePopup} onClose={handleDeleteProduct}>
-          <DeleteItem onClose={handleDeleteProduct} onClick={deleteProduct} loading={deleteProductLoading} />
+          <DeleteItem
+            onClose={handleDeleteProduct}
+            onClick={deleteProduct}
+            loading={deleteProductLoading}
+          />
         </Popup>
       )}
     </>

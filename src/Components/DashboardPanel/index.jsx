@@ -293,7 +293,6 @@ export const DashboardPanel = () => {
     updateTrackingCardData();
   }, [updateTrackingCardData]);
 
-  console.log(data, "data");
   return (
     <>
       <Breadcrumb currentPage={"Dashboard"} serachEnable />

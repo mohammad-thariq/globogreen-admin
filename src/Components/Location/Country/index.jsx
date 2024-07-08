@@ -9,7 +9,6 @@ import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { CountryForm } from "@/common/Form/LocationForm/CountryForm";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { CountryTableHeading } from "@/constant/tableHeading";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 
 export const Country = () => {
@@ -87,10 +86,6 @@ export const Country = () => {
     DeleteCountryMutate({ id: currentCountryId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />;
-  }
-
   if (isLoading) {
     return <Loader />;
   }
@@ -114,6 +109,7 @@ export const Country = () => {
         onDelete={handleDeleteLocation}
         onUpdate={handleUpdateLocation}
         onCountryData={data}
+        length={data?.countries?.length === 0}
       />
 
       {openCreatePopup && (

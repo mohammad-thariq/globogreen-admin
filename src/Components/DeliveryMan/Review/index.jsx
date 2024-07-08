@@ -1,6 +1,5 @@
 import { BaseTable } from "@/common/BaseTable";
 import { Breadcrumb } from "@/common/Breadcrumb";
-import { Button } from "@/common/Button";
 import { ReviewForm } from "@/common/Form/DeliveryManForm/ReviewForm";
 import { Loader } from "@/common/Loader";
 import { NoDataFound } from "@/common/NoDataFound";
@@ -66,13 +65,14 @@ export const Review = () => {
     return <Loader />;
   }
 
-  if (data && data) {
-    return <NoDataFound />;
-  }
   return (
     <>
       <Breadcrumb currentPage={"Review"} serachEnable />
-      <BaseTable tableHeadings={reviewTableheading} onReviewData={data} />
+      <BaseTable
+        tableHeadings={reviewTableheading}
+        onReviewData={data}
+        length={data?.length === 0}
+      />
       {openUpdatePopup && (
         <Popup open={openUpdatePopup} onClose={handleCreatereview}>
           <ReviewForm

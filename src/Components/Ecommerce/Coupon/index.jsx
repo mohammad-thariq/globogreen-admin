@@ -8,7 +8,6 @@ import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { CouponTableHeading } from "@/constant/tableHeading";
 import { EcommerceAPI } from "@/service/ecommerce/EcommerceAPI";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 import { CouponForm } from "@/common/Form/EcommerceForm/Coupon";
 
@@ -87,10 +86,6 @@ export const Coupon = () => {
     DeleteCouponMutate({ id: currentCouponId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -116,6 +111,7 @@ export const Coupon = () => {
         onDelete={handleDeleteCoupon}
         onUpdate={handleUpdateCoupon}
         onCouponData={data}
+        length={data?.coupons?.length === 0}
       />
 
       {openCreatePopup && (

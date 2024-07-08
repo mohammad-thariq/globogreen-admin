@@ -19,6 +19,7 @@ export default function ProfileCard({ Name, Title, children, image }) {
                 src={image}
                 alt="profile_image"
                 className="w-100 border-radius-lg shadow-sm"
+                style={{width: "100px", height: "70px", borderRadius: "50%", objectFit: 'cover'}}
               />
             </div>
 }

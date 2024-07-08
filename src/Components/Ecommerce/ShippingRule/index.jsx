@@ -8,7 +8,6 @@ import { DeleteItem } from "@/common/Popup/DeleteItem";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { ShippingRuleTableHeading } from "@/constant/tableHeading";
 import { EcommerceAPI } from "@/service/ecommerce/EcommerceAPI";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 import { ShippingRuleForm } from "@/common/Form/EcommerceForm/Shipping";
 import { locationAPI } from "@/service/location/loctionAPI";
@@ -113,10 +112,6 @@ export const ShippingRule = () => {
     DeleteShippingRuleMutate({ id: currentShippingRuleId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -144,6 +139,7 @@ export const ShippingRule = () => {
         onDelete={handleDeleteShippingRule}
         onUpdate={handleUpdateShippingRule}
         onShippingData={data}
+        length={data?.shippings?.length === 0}
       />
 
       {openCreatePopup && (

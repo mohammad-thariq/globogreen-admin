@@ -6,7 +6,7 @@ export const StockHistory = ({onStockHistoryData}) => {
     return (
       <>
         {onStockHistoryData &&
-          onStockHistoryData?.products
+          onStockHistoryData?.histories
           ?.map((item, index) => (
             <tr key={index}>
               <td className="align-middle text-center">

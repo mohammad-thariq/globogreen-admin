@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { BrandsTableHeading } from "@/constant/tableHeading";
-import { NoDataFound } from "@/common/NoDataFound";
 import { Loader } from "@/common/Loader";
 
 export const Brands = () => {

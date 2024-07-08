@@ -3,7 +3,6 @@ import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
 import { WithdrawPaymentForm } from "@/common/Form/WithdrawPaymentForm";
 import { Loader } from "@/common/Loader";
-import { NoDataFound } from "@/common/NoDataFound";
 import { PageHeader } from "@/common/PageHeader";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
@@ -102,10 +101,6 @@ export const WithdrawMethod = () => {
     DeleteWithdrawMethodPayMutate({ id: currentWithdrawMethodPayId });
   };
 
-  if (data && !data) {
-    return <NoDataFound />;
-  }
-
   if (isLoading) {
     return <Loader />;
   }
@@ -130,6 +125,7 @@ export const WithdrawMethod = () => {
         onWithdrawPaymentData={data}
         onDelete={handleDeleteWithdrawMethodPay}
         onUpdate={handleUpdateWithdrawMethodPay}
+        length={data?.methods?.length === 0}
       />
       {openCreatePopup && (
         <Popup open={openCreatePopup} onClose={handleCreateWithdrawMethodPay}>

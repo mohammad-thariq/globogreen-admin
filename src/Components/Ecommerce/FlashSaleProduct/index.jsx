@@ -9,8 +9,6 @@ import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
 import { FlashSaleTableHeading } from "@/constant/tableHeading";
 import { EcommerceAPI } from "@/service/ecommerce/EcommerceAPI";
 import { FlashSaleForm } from "@/common/Form/EcommerceForm/FlashSale";
-import { NoDataFound } from "@/common/NoDataFound";
-import { MutatingDots } from "react-loader-spinner";
 import { Loader } from "@/common/Loader";
 
 export const FlashSaleProduct = () => {
@@ -88,10 +86,6 @@ export const FlashSaleProduct = () => {
     DeleteFlashSaleMutate({ id: currentFlashSaleId });
   };
 
-  if (data) {
-    return <NoDataFound />
-  }
-
   if (isLoading) {
     return <Loader />
   }
@@ -115,6 +109,7 @@ export const FlashSaleProduct = () => {
         onDelete={handleDeleteFlashSale}
         onUpdate={handleUpdateFlashSale}
         onFlashSaleData={data}
+        length={data?.flash_sale_products?.length !== 0}
       />
 
       {openCreatePopup && (

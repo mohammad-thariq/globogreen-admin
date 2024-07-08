@@ -8,20 +8,23 @@ import { useQuery } from "react-query";
 
 export const ProductsReport = () => {
   const { productReport } = new productCateoriesAPI();
-  const { data, isLoading, refetch } = useQuery(["productReport"], productReport);
-  
-  if (data && data) {
-    return <NoDataFound />
-  }
+  const { data, isLoading, refetch } = useQuery(
+    ["productReport"],
+    productReport
+  );
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
+
+  console.log(data, "data");
   return (
     <>
       <Breadcrumb currentPage={"Products Report"} serachEnable />
-        <BaseTable tableHeadings={productReportTableHeading} />
-    
+      <BaseTable
+        tableHeadings={productReportTableHeading}
+        length={data?.reports?.length === 0}
+      />
     </>
   );
 };
