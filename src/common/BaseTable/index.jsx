@@ -44,6 +44,7 @@ import { NoDataFound } from "../NoDataFound";
 import { ProductDetails } from "./TableBody/Products/ProductDetailsTable";
 import { ProductVariant } from "./TableBody/Products/ProductVariantTable";
 import { ProductVariantItem } from "./TableBody/Products/ProductVariantItemTable";
+import { AdminListTable } from "./TableBody/AdminListTable";
 // import ReactPaginate from "react-paginate";
 // import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 // import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
@@ -54,6 +55,7 @@ export const BaseTable = ({
   tableTitle,
   length,
   // tableDatas starts
+  onAdminData,
   onTableData,
   onCategoriesData,
   onPopularCategoriesData,
@@ -139,6 +141,9 @@ export const BaseTable = ({
                     )}
                   </thead>
                   <tbody>
+                    {onAdminData && (
+                     <AdminListTable onAdminData={onAdminData} onDelete={onDelete}/>
+                    )}
                     {isShown && (
                       <OrderTable
                         ref={ref}

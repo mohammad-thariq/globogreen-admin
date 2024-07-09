@@ -1,3 +1,11 @@
+export const AdminTableHeadings = [
+  "S NO",
+  "Name",
+  "Email",
+  "Image",
+  "Status",
+  "Image"
+]
 export const AllOrderTableHeadings = [
   "S NO",
   "CUSTOMER",

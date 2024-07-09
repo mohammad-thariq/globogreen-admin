@@ -1,50 +1,57 @@
+import { BaseTable } from "@/common/BaseTable";
 import { Breadcrumb } from "@/common/Breadcrumb";
+import { Popup } from "@/common/Popup";
+import { DeleteItem } from "@/common/Popup/DeleteItem";
 import ProfileCard from "@/common/ProfileCard";
+import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
+import { AdminTableHeadings } from "@/constant/tableHeading";
+import { AdminAPI } from "@/service/admin/AdminAPI";
+import { useState } from "react";
+import { useMutation, useQuery } from "react-query";
+
 
 export const Admin = () => {
+
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
+  const [currentAdminId, setCurrentAdminId] = useState(null);
+
+  const {adminList,DeleteAdminList} = new AdminAPI()
+  const {data , loading , refetch}= useQuery(["adminList"], adminList)
+  console.log(data , "Admin Data")
+
+  const { mutate: DeleteAdminMutate, isLoading: deleteAdminLoading } =
+    useMutation(DeleteAdminList, {
+      onSuccess: (data, variables, context) => {
+        setOpenDeletePopup(false);
+        ToastifySuccess(data?.notification);
+        refetch();
+      },
+      onError: (data, variables, context) => {
+        setOpenDeletePopup(true);
+        ToastifyFailed(data?.notification);
+        refetch();
+      },
+    });
+
+    const handleDeleteAdmin = (id) => {
+      setCurrentAdminId(id);
+      setOpenDeletePopup(!openDeletePopup);
+    };
+  
+    const handleOnDeleteAdmin = () => {
+      DeleteAdminMutate({ id: currentAdminId });
+    };
+
   return (
     <>
       <Breadcrumb currentPage={"Admin"} serachEnable />
       <ProfileCard Name="Admin" Title="">
-        <div className="container-fluid py-4">
-          <div className="row">
-            <div className="col-12">
-              <div className="card mb-4">
-                <div className="card-header pb-0"></div>
-                <div className="card-body px-0 pt-0 pb-2">
-                  <div className="table-responsive p-0">
-                    <table className="table align-items-center mb-0">
-                      <thead>
-                        <tr>
-                          <th className=" text-center text-uppercase text-secondary text-sm font-weight-bolder">
-                            S No
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-sm font-weight-bolder ">
-                            Name
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-sm font-weight-bolder ">
-                            Email
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-sm font-weight-bolder ">
-                            Image
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-sm font-weight-bolder ">
-                            Status
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-sm font-weight-bolder">
-                            Action
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       <BaseTable tableHeadings={AdminTableHeadings} onAdminData= {data} onDelete={handleDeleteAdmin} />
       </ProfileCard>
+      {openDeletePopup && <Popup open={openDeletePopup} onClose={handleDeleteAdmin}>
+        <DeleteItem onClose={handleDeleteAdmin}  onClick={handleOnDeleteAdmin}
+            loading={deleteAdminLoading} />
+        </Popup>}
     </>
   );
 };
