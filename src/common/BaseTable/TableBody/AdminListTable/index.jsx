@@ -45,7 +45,7 @@ export const AdminListTable = ({onAdminData,onDelete}) => {
                   onClick={() => onDelete(item.id)}
                 />
               </span>
-            </span>{" "}
+            </span>
           </td>
         </tr>
       ))}
