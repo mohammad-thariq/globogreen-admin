@@ -228,6 +228,16 @@ export const SideNavConst = {
       ],
     },
     {
+      heading: "Advertisement",
+      icon: <EmailIcon sx={{ fontSize: 18 }} />,
+      subRoutes:[
+        {
+          name: "Advertisement",
+          url: "/admin/advertisement",
+        },
+       ]
+    },
+    {
       heading: "Users",
       icon: <GroupIcon sx={{ fontSize: 18 }} />,
       subRoutes: [
@@ -329,6 +339,11 @@ export const SideNavConst = {
         },
       ],
     },
+  
+     
+        
+      
+    
   ],
 };
 
