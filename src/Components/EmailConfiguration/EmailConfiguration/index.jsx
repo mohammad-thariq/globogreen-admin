@@ -32,12 +32,13 @@ export const EmailConfiguration = () => {
     <>
       <PageHeader title="Email Configuration" />
       <Breadcrumb currentPage={"Email Configuration"} serachEnable />
-      {data && <EmailConfigForm
-        onData={data?.email}
-        onUpdate={updateEmailConfigMutate}
-        loading={updateEmailConfigLoading}
-      />
-}
+      {data && (
+        <EmailConfigForm
+          onData={data?.email}
+          onUpdate={updateEmailConfigMutate}
+          loading={updateEmailConfigLoading}
+        />
+      )}
     </>
   );
 };

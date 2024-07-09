@@ -56,6 +56,7 @@ export const PendingSellerWithdraw = () => {
         tableHeadings={PendingSellerTableHeading}
         onPendingSellerData={data}
         onDelete={handleDeletePendingSeller}
+        length={data?.withdraws?.length === 0}
       />
       {openDeletePopup && (
         <Popup open={openDeletePopup} onClose={handleDeletePendingSeller}>

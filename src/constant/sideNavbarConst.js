@@ -119,10 +119,10 @@ export const SideNavConst = {
           name: "Products Review",
           url: "/admin/products-review",
         },
-        {
-          name: "Products Report",
-          url: "/admin/products-report",
-        },
+        // {
+        //   name: "Products Report",
+        //   url: "/admin/products-report",
+        // },
       ],
     },
     {

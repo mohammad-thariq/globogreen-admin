@@ -58,6 +58,7 @@ export const PendingCustomer = () => {
   const handleOnDeletePendingCustomer = () => {
     DeletePendingCustomerListMutate({ id: currentPendingCustomerId });
   };
+
   return (
     <>
       <PageHeader title="Pending Customer" />
@@ -66,6 +67,7 @@ export const PendingCustomer = () => {
         tableHeadings={customerListTableHeading}
         onPendingCustomerListData={data}
         onDelete={handleDeletePendingList}
+        length={data?.customers?.length === 0}
       />
 
       {sendEmailToAll && (

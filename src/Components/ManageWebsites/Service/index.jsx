@@ -2,6 +2,7 @@ import { BaseTable } from "@/common/BaseTable";
 import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
 import { ServiceForm } from "@/common/Form/ManageWebsitesForm/ServiceForm";
+import { Loader } from "@/common/Loader";
 import { PageHeader } from "@/common/PageHeader";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
@@ -16,7 +17,7 @@ export const Service = () => {
   const [currentServiceData, setCurrentServiceData] = useState(null);
   const [openCreatePopup, setOpenCreatePopup] = useState(false);
   const [openUpdatePopup, setOpenUpdatePopup] = useState(false);
-  const [openDeletePopup, setOpenDeletePopup] = useState(false); 
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
 
   const { service, createService, UpdateService, deleteService } =
     new ManageWebsitesAPI();
@@ -73,7 +74,6 @@ export const Service = () => {
     setOpenUpdatePopup(!openUpdatePopup);
     const getCurrentService = data?.services?.find((i) => i?.id === id);
     setCurrentServiceData(getCurrentService);
-    console.log(getCurrentService, "getCurrentService")
   };
 
   const handleDeleteService = (id) => {
@@ -84,6 +84,9 @@ export const Service = () => {
   const handleOnDeleteService = () => {
     DeleteServiceMutate({ id: currentServiceId });
   };
+
+  if (isLoading) return <Loader />;
+
   return (
     <>
       <PageHeader title="Service" />
@@ -99,7 +102,13 @@ export const Service = () => {
           onClick={handleCreateService}
         />
       </div>
-      <BaseTable tableHeadings={serviceTableHeading} onServiceData={data} onDelete={handleDeleteService} onUpdate={handleUpdateService}/>
+      <BaseTable
+        tableHeadings={serviceTableHeading}
+        onServiceData={data}
+        onDelete={handleDeleteService}
+        onUpdate={handleUpdateService}
+        length={data?.services?.length === 0}
+      />
       {openCreatePopup && (
         <Popup open={openCreatePopup} onClose={handleCreateService}>
           <ServiceForm

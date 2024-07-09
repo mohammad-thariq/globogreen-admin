@@ -78,6 +78,7 @@ export const PendingSeller = () => {
         tableHeadings={SellerListTableHeading}
         onPendingSellerListData={data}
         onDelete={handleDeletePendingSeller}
+        length={data?.sellers?.length === 0}
       />
       {openDeletePopup && (
         <Popup open={openDeletePopup} onClose={handleDeletePendingSeller}>

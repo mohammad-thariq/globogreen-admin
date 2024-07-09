@@ -45,6 +45,8 @@ import { ProductDetails } from "./TableBody/Products/ProductDetailsTable";
 import { ProductVariant } from "./TableBody/Products/ProductVariantTable";
 import { ProductVariantItem } from "./TableBody/Products/ProductVariantItemTable";
 import { AdminListTable } from "./TableBody/AdminListTable";
+import { ProductReviewTable } from "./TableBody/Products/ProductReviewTable";
+import { DeliveryManDetailsTable } from "./TableBody/DeliveryMan/DeliveryManDetails";
 // import ReactPaginate from "react-paginate";
 // import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 // import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
@@ -99,7 +101,8 @@ export const BaseTable = ({
   onMailTemplateData,
   onProductVariantData,
   onProductVariantItemData,
-
+  onProductReviewData,
+  onDeliveryDetailManData,
   // tableDatas ends
 
   //  Table Depend Data starts
@@ -216,6 +219,14 @@ export const BaseTable = ({
                         onDelete={onDelete}
                       />
                     )}
+
+                    {onProductReviewData && (
+                      <ProductReviewTable
+                        onProductReviewData={onProductReviewData}
+                        onUpdate={onUpdate}
+                        onDelete={onDelete}
+                      />
+                    )}
                     {onSellerProductData && (
                       <SellerProductTable
                         onSellerProductData={onSellerProductData}
@@ -288,6 +299,13 @@ export const BaseTable = ({
                     {onDeliveryManData && (
                       <DeliveryMan
                         onDeliveryManData={onDeliveryManData}
+                        onUpdate={onUpdate}
+                        onDelete={onDelete}
+                      />
+                    )}
+                    {onDeliveryDetailManData && (
+                      <DeliveryManDetailsTable
+                        onDeliveryDetailManData={onDeliveryDetailManData}
                         onUpdate={onUpdate}
                         onDelete={onDelete}
                       />

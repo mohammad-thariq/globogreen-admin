@@ -90,7 +90,6 @@ export const Coupon = () => {
     return <Loader />
   }
 
-  console.log(currentCouponData, 'currentCouponData');
 
   return (
     <>

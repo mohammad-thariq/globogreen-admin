@@ -15,9 +15,11 @@ export const EmailTemplate = () => {
   const handleNavigate = (id) => {
     router.push(`/admin/email-template/${id}`);
   };
+
   if (isLoading) {
     return <Loader />;
   }
+
   return (
     <>
       <PageHeader title="Email Template" />
@@ -26,6 +28,7 @@ export const EmailTemplate = () => {
         tableHeadings={emailTemplateTableHeading}
         onEmailTemplateData={data}
         onNavigate={handleNavigate}
+        length={data?.templates?.length === 0}
       />
     </>
   );

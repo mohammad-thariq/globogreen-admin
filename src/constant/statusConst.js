@@ -539,31 +539,76 @@ export const deliveryManDetailsTracker = [
   {
     id: 1,
     name: "Current product Balance",
-    countKey: "currentProductBalance",
+    countKey: "current_product_amount",
     icon: "ni ni-money-coins text-lg opacity-10",
   },
   {
     id: 2,
     name: "Completed Order",
-    countKey: "completedOrder",
+    countKey: "completeOrder",
     icon: "ni ni-world text-lg opacity-10",
   },
   {
     id: 3,
     name: "Running Order",
-    countKey: "runningOrders",
+    countKey: "runingOrder",
     icon: "ni ni-paper-diploma text-lg opacity-10",
   },
   {
     id: 4,
     name: "Total Earn",
-    countKey: "totalEarn",
+    countKey: "tota_earn",
     icon: "ni ni-cart text-lg opacity-10",
   },
   {
     id: 5,
     name: "Total widthdraw",
-    countKey: "totalProduct",
+    countKey: "deliveryManWithdraw",
     icon: "ni ni-money-coins text-lg opacity-10",
+  },
+];
+
+export const deliveryManDetails = [
+  {
+    id: 1,
+    name: "Email",
+    countKey: "email",
+    type: "text",
+  },
+  {
+    id: 2,
+    name: "Phone",
+    countKey: "phone",
+    type: "text",
+  },
+  {
+    id: 3,
+    name: "Delivery Man Type",
+    countKey: "man_type",
+    type: "text",
+  },
+  {
+    id: 4,
+    name: "Identity Type",
+    countKey: "idn_type",
+    type: "text",
+  },
+  {
+    id: 5,
+    name: "Identity Number",
+    countKey: "idn_num",
+    type: "text",
+  },
+  {
+    id: 6,
+    name: "Identity Image",
+    countKey: "idn_image",
+    type: "image",
+  },
+  {
+    id: 7,
+    name: "User Status",
+    countKey: "status",
+    type: "status",
   },
 ];

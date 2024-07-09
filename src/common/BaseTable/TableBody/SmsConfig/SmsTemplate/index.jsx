@@ -1,11 +1,6 @@
 import EditNoteIcon from "@mui/icons-material/EditNote";
 
-
-export const SmsTemplate = ({
-    onSmsConfigData,
-  onDelete,
-  onUpdate,
-}) => {
+export const SmsTemplate = ({ onSmsConfigData, onUpdate }) => {
   return (
     <>
       {onSmsConfigData &&
@@ -13,7 +8,7 @@ export const SmsTemplate = ({
           <tr key={index}>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item.id}
+                {index + 1}
               </span>
             </td>
             <td className="align-middle text-center">
@@ -21,19 +16,12 @@ export const SmsTemplate = ({
                 {item.name}
               </span>
             </td>
-            <td className="align-middle text-center">
-              <span className="text-secondary text-sm font-weight-bold">
-                {item.subject}
-              </span>
-            </td>
-           
-            
 
             <td className="align-middle text-center cursor-pointer">
               <span>
                 <EditNoteIcon
                   sx={{ fontSize: 25 }}
-                  onClick={()=>onUpdate(item.id)}
+                  onClick={() => onUpdate(item.id)}
                 />
               </span>
             </td>

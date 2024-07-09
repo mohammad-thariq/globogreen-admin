@@ -204,6 +204,17 @@ export class productCateoriesAPI {
     return res;
   };
 
+  updateproductReview = async (data) => {
+    const res = await _axios("post", `/product-review-status?token=${getToken()}`, data);
+    return res;
+  };
+
+  deleteproductReview = async (data) => {
+    const res = await _axios("post", `/delete-product-review?token=${getToken()}`, data);
+    return res;
+  };
+
+
   createProducts = async (data) => {
     const res = await _axios(
       "post",

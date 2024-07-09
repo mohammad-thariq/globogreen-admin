@@ -1,5 +1,5 @@
 import { Button } from "@/common/Button";
-import {style} from "./index.module.css"
+import style from "./index.module.css"
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -15,9 +15,8 @@ export const HomePageSessionForm = ({
     custom: Yup.string().required("Custom is Required"),
   });
 
-  console.log(data , "dddd")
   return (
-    // <div className={style.wrapper}>
+    <div className={style.wrapper}>
       <Formik
         initialValues={{
           custom: data?.custom || "",
@@ -41,7 +40,7 @@ export const HomePageSessionForm = ({
           handleBlur,
           handleSubmit,
         }) => (
-          <form role="form" className="w-350">
+          <form>
             <label>Changeable</label>
             <div className="mb-3">
               <input
@@ -60,7 +59,7 @@ export const HomePageSessionForm = ({
               </p>
             </div>
 
-            {/* <div className={style.btnWrapper}> */}
+            <div className={style.btnWrapper}>
               <Button
                 name="Close"
                 border="1px solid #23D24F"
@@ -75,10 +74,10 @@ export const HomePageSessionForm = ({
                 onClick={handleSubmit}
                 isSubmitting={loading}
               />
-            {/* </div> */}
+            </div>
           </form>
         )}
       </Formik>
-    // </div>
+    </div>
   );
 };

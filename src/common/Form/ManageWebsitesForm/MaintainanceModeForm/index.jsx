@@ -32,9 +32,10 @@ export const MaintainanceModeForm = ({ data, onUpdate, loading }) => {
                   <form>
                     <div class="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         value={values?.status}
+                        onSelect={data?.status === 1 ? true : false}
                         id="flexCheckDefault"
                       />
                       <label class="form-check-label" for="flexCheckDefault">

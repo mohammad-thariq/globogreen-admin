@@ -28,7 +28,7 @@ export const EmailMailTemplateForm = ({ onData, onUpdate, loading }) => {
                 onUpdate({
                   id: onData.id,
                   subject: values.subject,
-                  description: onData?.description || getLongDescription,
+                  description: getLongDescription,
                 });
 
                 actions.setSubmitting(true);

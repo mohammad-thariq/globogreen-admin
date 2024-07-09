@@ -274,7 +274,7 @@ export const PendingSellerTableHeading = [
 
  export const SellerListTableHeading =["SN",	"Seller Name",	"Email",	"Image"	,"Status",	"Action"]
 
- export const sliderTableHeading = ["Image",	"Serial",	"Badge" , "Title One", "Title Two", "Product Link","Status",	"Action"]
+ export const sliderTableHeading = ["Image",	"Serial",	"Badge" , "Title One", "Title Two", "Status",	"Action"]
 
  export const serviceTableHeading= ["SN"	,"Title",	"Icon"	,"Description",	"Status",	"Action"]
 
@@ -283,10 +283,10 @@ export const PendingSellerTableHeading = [
  export const emailMainTemplateTableHeading =["Variable",	"Meaning"]
 
  export const smsTemplateTableHeading = [
-  "SN",	"Sms", "Template",	"Action"]
+  "SN",	"Sms Template", "Action"]
 
   export const contactMessageTablHeading=["SN",	"Name",	"Email"	,"Phone"	,"Subject",	"Message", "Action"]
-
+  export const productReviewTablHeading=["SN",	"Name",	"Product"	,"Rating"	,"Status", "Action"]
   export const homePageSessionTableHeading = ["Default" , "Action"]
   export const deliverymanDetailsTableHeading = ["Title" , "Details"]
   export const productDetailsTableHeading = ["Image" , "Status", "Action"]

@@ -75,6 +75,7 @@ export const SellerList = () => {
   const handleOnDeleteSeller = () => {
     DeleteSellerMutate({ id: currentSellerId });
   };
+
   return (
     <>
       <PageHeader title="Seller List" />
@@ -96,6 +97,7 @@ export const SellerList = () => {
         onDelete={handleDeleteSeller}
         onUpdate={handleUpdateSeller}
         onSend={handleSendEmailToAll}
+        length={data?.sellers?.length === 0}
       />
       {openDeletePopup && (
         <Popup open={openDeletePopup} onClose={handleDeleteSeller}>

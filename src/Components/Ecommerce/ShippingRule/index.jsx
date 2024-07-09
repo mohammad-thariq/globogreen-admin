@@ -117,9 +117,6 @@ export const ShippingRule = () => {
   }
 
 
-
-  console.log(cityLocationOptions, cityData, 'cityLocationOptions');
-
   return (
     <>
       <Breadcrumb currentPage={"Shipping Rule"} serachEnable />

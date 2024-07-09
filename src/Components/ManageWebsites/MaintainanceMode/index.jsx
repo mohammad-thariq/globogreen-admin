@@ -19,11 +19,11 @@ export const MaintainanceMode = () => {
     isLoading: updateMaintainanceLoading,
   } = useMutation(updateMaintainanceMode, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.message);
+      ToastifySuccess(data?.notification);
       refetch();
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.message);
+      ToastifyFailed(data?.notification);
     },
   });
 

@@ -1,64 +1,42 @@
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ProductStatus } from "@/common/BaseTable/TableColumn/ProductStatus";
-import Image from "next/image";
-import { BaseUrls } from "../../../../../../env";
 
-export const Sliders = ({
-  onSliderData,
-  onUpdate,
+export const ProductReviewTable = ({
+  onProductReviewData,
   onDelete,
+  onUpdate,
 }) => {
   return (
     <>
-      {onSliderData &&
-        onSliderData?.sliders?.map((item, index) => (
+      {onProductReviewData &&
+        onProductReviewData?.reviews?.map((item, index) => (
           <tr key={index}>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-              <Image
-                width={100}
-                height={100}
-                alt=""
-                src={
-                  `${BaseUrls?.IMAGE_URL}/${item.image}` ||
-                  "/assets/img/placeholder.jpg"
-                }
-                className="text-secondary text-sm font-weight-bold product-image"
-              />
+                {index + 1}
               </span>
             </td>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item.id}
+                {item?.user?.name || "null"}
+              </span>
+            </td>
+            <td className="align-middle text-center">
+              <span className="text-secondary text-sm font-weight-bold" title={item?.product?.name}>
+                {item.product?.name.slice(0, 50).toLowerCase()} ...
               </span>
             </td>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item.badge}
+                {item?.rating}
               </span>
             </td>
-            <td className="align-middle text-center">
-              <span className="text-secondary text-sm font-weight-bold">
-                {item.title_one}
-              </span>
-            </td>
-            <td className="align-middle text-center">
-              <span className="text-secondary text-sm font-weight-bold">
-                {item.title_two}
-              </span>
-            </td>
-            <td className="align-middle text-center">
+            <td className="align-middle text-center cursor-pointer" onClick={() => onUpdate(item.id)}>
               <ProductStatus status={item?.status} />
             </td>
 
             <td className="align-middle text-center cursor-pointer">
-              <span>
-                <EditNoteIcon
-                  sx={{ fontSize: 25 }}
-                  onClick={() => onUpdate(item.id)}
-                />
-              </span>{" "}
               <span>
                 <DeleteIcon
                   sx={{ fontSize: 20 }}

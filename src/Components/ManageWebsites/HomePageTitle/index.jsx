@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Popup } from "@/common/Popup";
 import { HomePageSessionForm } from "@/common/Form/ManageWebsitesForm/HomePageSessionForm";
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
+import { Loader } from "@/common/Loader";
 
 export const HomePageTitle = () => {
   const [openUpdatePopup, setOpenUpdatePopup] = useState(false);
@@ -18,7 +19,6 @@ export const HomePageTitle = () => {
     ["homepageTitle"],
     homepageTitle
   );
-  console.log(data, "Home Page");
 
   const {
     mutate: updateHomePageTitleMutate,
@@ -42,6 +42,9 @@ export const HomePageTitle = () => {
     setCurrentHomePageData(getCurrentPageTitle);
     setOpenUpdatePopup(!openUpdatePopup);
   };
+
+  if (isLoading) return <Loader />;
+
   return (
     <>
       <PageHeader title="HomePageTitle" />
@@ -50,6 +53,7 @@ export const HomePageTitle = () => {
         tableHeadings={homePageSessionTableHeading}
         onHomepageTitleData={data}
         onUpdate={handleUpdatePageTitle}
+        length={data?.sections?.length === 0}
       />
       {openUpdatePopup && (
         <Popup open={openUpdatePopup} onClose={handleUpdatePageTitle}>

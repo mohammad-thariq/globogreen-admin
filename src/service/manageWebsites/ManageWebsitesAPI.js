@@ -79,6 +79,20 @@ export class ManageWebsitesAPI {
         const res = await _axios("get", `/default-avatar?token=${getToken()}`);
         return res;
       };
+      
+
+      
+      //  Seller Conditions
+
+      sellerCondition = async () => {
+        const res = await _axios("get", `/seller-conditions?token=${getToken()}`);
+        return res;
+      };
+
+      updateSellerCondition = async (data) => {
+        const res = await _axios("put", `/update-seller-conditions?token=${getToken()}`,data);
+        return res;
+      };
 
       //  maintainance-mode
 
@@ -116,10 +130,4 @@ export class ManageWebsitesAPI {
         const res = await _axios("post", `/update-image-content?token=${getToken()}`,data);
         return res;
       };
-
-
-
-
-
-
 }

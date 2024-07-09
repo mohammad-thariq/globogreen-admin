@@ -38,11 +38,12 @@ export const AnnouncementForm = ({ data, onUpdate, loading }) => {
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        value={values.status}
+                        value={values?.status === 1 ? true : false}
+                        onSelect={values?.status === 1 ? true : false}
                         id="flexCheckDefault"
                       />
                       <label class="form-check-label" for="flexCheckDefault">
-                        {values.status}
+                        {values.status === 1 ? "Enabled" : "Disabled"}
                       </label>
                     </div>
                     <label>Exisiting</label>

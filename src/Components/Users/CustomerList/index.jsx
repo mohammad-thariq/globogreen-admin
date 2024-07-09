@@ -105,6 +105,7 @@ export const CustomerList = () => {
         onDelete={handleDeleteUser}
         onUpdate={handleUpdateUser}
         onSend={handleSendEmailToOne}
+        length={data?.customers?.length === 0}
       />
       {sendEmailToAll && (
         <Popup open={sendEmailToAll} onClose={handleSendEmailToAll}>

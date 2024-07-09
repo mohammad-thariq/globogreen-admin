@@ -2,6 +2,7 @@ import { BaseTable } from "@/common/BaseTable";
 import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
 import { SliderForm } from "@/common/Form/ManageWebsitesForm/SlidersForm";
+import { Loader } from "@/common/Loader";
 import { PageHeader } from "@/common/PageHeader";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
@@ -73,7 +74,7 @@ export const Slider = () => {
     setOpenUpdatePopup(!openUpdatePopup);
     const getCurrentSlider = data?.sliders?.find((i) => i?.id === id);
     setCurrentSliderData(getCurrentSlider);
-    console.log(getCurrentSlider, "getCurrentSlider")
+    console.log(getCurrentSlider, "getCurrentSlider");
   };
 
   const handleDeleteSlider = (id) => {
@@ -84,6 +85,9 @@ export const Slider = () => {
   const handleOnDeleteSlider = () => {
     DeleteSliderMutate({ id: currentSliderId });
   };
+
+  if (isLoading) return <Loader />;
+
   return (
     <>
       <PageHeader title="Slider" />
@@ -104,6 +108,7 @@ export const Slider = () => {
         onSliderData={data}
         onUpdate={handleUpdateSlider}
         onDelete={handleDeleteSlider}
+        length={data?.sliders?.length === 0}
       />
       {openCreatePopup && (
         <Popup open={openCreatePopup} onClose={handleCreateSlider}>

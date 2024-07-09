@@ -50,6 +50,7 @@ export const SellerWithdrawMethod = () => {
   if (isLoading) {
     return <Loader />;
   }
+  
   return (
     <>
       <Breadcrumb currentPage={"Seller Withdraw Method"} serachEnable />
@@ -58,7 +59,6 @@ export const SellerWithdrawMethod = () => {
         onSellerWithdrawData={data}
         onDelete={handleDeleteSellerWithdraw}
         length={data?.withdraws?.length === 0}
-        
       />
 
       {openDeletePopup && (
