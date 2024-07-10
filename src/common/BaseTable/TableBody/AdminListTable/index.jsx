@@ -1,10 +1,11 @@
 import DeleteIcon from "@mui/icons-material/Delete"
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import Image from "next/image";
 
 import { ProductStatus } from "@/common/BaseTable/TableColumn/ProductStatus";
 import { BaseUrls } from "../../../../../env";
 
-export const AdminListTable = ({onAdminData,onDelete}) => {
+export const AdminListTable = ({onAdminData,onDelete, onUpdate}) => {
   return (
     <>
       {onAdminData?.admins?.map((item, index) => (
@@ -43,6 +44,12 @@ export const AdminListTable = ({onAdminData,onDelete}) => {
                 <DeleteIcon
                   sx={{ fontSize: 20 }}
                   onClick={() => onDelete(item.id)}
+                />
+              </span>{" "}
+              <span>
+                <EditNoteIcon
+                  sx={{ fontSize: 20 }}
+                  onClick={() => onUpdate(item.id)}
                 />
               </span>
             </span>

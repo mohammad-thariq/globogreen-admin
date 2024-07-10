@@ -13,6 +13,15 @@ export class AdminAPI {
         return res;
       };
 
+      createAdmin = async (data) => {
+        const res = await _axios("post", `/admin?token=${getToken()}`, data);
+        return res;
+      };
+      updateAdmin = async (data) => {
+        const res = await _axios("put", `/admin?token=${getToken()}`, data);
+        return res;
+      };
+
       DeleteAdminList = async (data) => {
         const res = await _axios("delete", `/admin/${data.id}?token=${getToken()}`);
         return res;

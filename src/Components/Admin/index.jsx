@@ -1,6 +1,7 @@
 import { BaseTable } from "@/common/BaseTable";
 import { Breadcrumb } from "@/common/Breadcrumb";
 import { Button } from "@/common/Button";
+import { AdminForm } from "@/common/Form/AdminForm";
 import { Popup } from "@/common/Popup";
 import { DeleteItem } from "@/common/Popup/DeleteItem";
 import ProfileCard from "@/common/ProfileCard";
@@ -17,9 +18,37 @@ export const Admin = () => {
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [currentAdminId, setCurrentAdminId] = useState(null);
 
-  const {adminList,DeleteAdminList} = new AdminAPI()
+  const {adminList, createAdmin , updateAdmin,  DeleteAdminList} = new AdminAPI()
   const {data , loading , refetch}= useQuery(["adminList"], adminList)
   console.log(data , "Admin Data")
+
+  const { mutate: createAdminMutate, isLoading: createAdminLoading } =
+  useMutation(createAdmin, {
+    onSuccess: (data, variables, context) => {
+      setOpenCreatePopup(false);
+      ToastifySuccess(data?.notification);
+      refetch();
+    },
+    onError: (data, variables, context) => {
+      setOpenCreatePopup(true);
+      refetch();
+      ToastifyFailed(data?.notification);
+    },
+  });
+
+  const { mutate: updateAdminMutate, isLoading: updateAdminLoading } =
+  useMutation(updateAdmin, {
+    onSuccess: (data, variables, context) => {
+      setOpenUpdatePopup(false);
+      ToastifySuccess(data?.notification);
+      refetch();
+    },
+    onError: (data, variables, context) => {
+      setOpenUpdatePopup(true);
+      ToastifyFailed(data?.notification);
+      refetch();
+    },
+  });
 
   const { mutate: DeleteAdminMutate, isLoading: deleteAdminLoading } =
     useMutation(DeleteAdminList, {
@@ -43,6 +72,9 @@ export const Admin = () => {
       setOpenDeletePopup(!openDeletePopup);
     };
   
+    const handleUpdateAdmin =()=>{
+      setOpenUpdatePopup(!openUpdatePopup)
+    }
     const handleOnDeleteAdmin = () => {
       DeleteAdminMutate({ id: currentAdminId });
     };
@@ -62,11 +94,14 @@ export const Admin = () => {
         />
       </div>
       <ProfileCard Name="Admin" Title="">
-       <BaseTable tableHeadings={AdminTableHeadings} onAdminData= {data} onDelete={handleDeleteAdmin} />
+       <BaseTable tableHeadings={AdminTableHeadings} onAdminData= {data} onDelete={handleDeleteAdmin} onUpdate={handleUpdateAdmin}/>
       </ProfileCard>
       {openCreatePopup && <Popup open={openCreatePopup} onClose={handleCreateAdmin}>
-        
+        <AdminForm button="Add" onClose={handleCreateAdmin}/>
         </Popup>}
+        {openUpdatePopup && <Popup open={openUpdatePopup} onClose={handleUpdateAdmin}>
+          <AdminForm button="Update" onClose={handleUpdateAdmin}/>
+          </Popup>}
       {openDeletePopup && <Popup open={openDeletePopup} onClose={handleDeleteAdmin}>
         <DeleteItem onClose={handleDeleteAdmin}  onClick={handleOnDeleteAdmin}
             loading={deleteAdminLoading} />
