@@ -4,7 +4,7 @@ export const AdminTableHeadings = [
   "Email",
   "Image",
   "Status",
-  "Image"
+  "Action"
 ]
 export const AllOrderTableHeadings = [
   "S NO",

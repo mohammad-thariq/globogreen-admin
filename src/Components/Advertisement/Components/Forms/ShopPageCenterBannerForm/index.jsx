@@ -1,11 +1,11 @@
 import { Button } from "@/common/Button";
 import { InputSelect } from "@/common/Form/common/inputSelect";
-import { SettingActiveStatus } from "@/constant/statusConst";
+import { statusConstantOption } from "@/constant/statusConst";
 import { Formik } from "formik";
 import Image from "next/image";
 import { BaseUrls } from "../../../../../../env";
 
-export const ShopPageCenterBannerForm = ({ onData, loading, onUpdate }) => {
+export const ShopPageCenterBannerForm = ({ onData, loading, onUpdate, categoryLink }) => {
   return (
     <div>
       <Formik
@@ -14,11 +14,9 @@ export const ShopPageCenterBannerForm = ({ onData, loading, onUpdate }) => {
           image: null,
           link: onData?.link || "",
           product_slug: onData?.product_slug || "",
-          status: onData?.status || "",
-          title_one: onData?.title_one || "",
-          title_two: onData?.title_two || "",
+          status: onData?.status + 1 || "",
+          title: onData?.title_one || "",
           after_product_qty: onData?.after_product_qty || "",
-          badge: onData?.badge || "",
         }}
         onSubmit={(values, actions) => {
           onUpdate({
@@ -26,11 +24,9 @@ export const ShopPageCenterBannerForm = ({ onData, loading, onUpdate }) => {
             banner_image: values?.image,
             link: values?.link,
             product_slug: values?.product_slug,
-            status: values?.status,
-            title_one: values?.title_one,
-            title_two: values?.title_two,
+            status: values?.status - 1,
+            title: values?.title,
             after_product_qty: values?.after_product_qty,
-            badge: values?.badge,
           });
 
           actions.setSubmitting(true);
@@ -67,14 +63,14 @@ export const ShopPageCenterBannerForm = ({ onData, loading, onUpdate }) => {
             </div>
 
             <div className="mb-3">
-              <label>Title One</label>
+              <label>Title</label>
               <input
                 type="text"
                 name="title_one"
                 className="form-control"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.title_one}
+                value={values.title}
               />
             </div>
             <div className="mb-3">
@@ -88,21 +84,16 @@ export const ShopPageCenterBannerForm = ({ onData, loading, onUpdate }) => {
                 value={values?.after_product_qty}
               />
             </div>
-            <div className="mb-3">
-              <label>Categories Link</label>
-              <input
-                type="text"
-                name="link"
-                className="form-control"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values?.link}
-              />
-            </div>
-            <div className="mb-3">
-              <label>Status</label>
+            <InputSelect
+              label="Categories Link"
+              name="link"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values?.link}
+              onData={categoryLink}
+            />
               <InputSelect
-                onData={SettingActiveStatus}
+                onData={statusConstantOption}
                 label="status"
                 name="status"
                 onChange={handleChange}
@@ -110,7 +101,6 @@ export const ShopPageCenterBannerForm = ({ onData, loading, onUpdate }) => {
                 values={values?.status}
                 isValue
               />
-            </div>
 
             <div className="flex justify-content-fs">
               <Button

@@ -1,7 +1,7 @@
 import { Button } from "@/common/Button";
 import { Formik } from "formik";
 import {
-  SettingActiveStatus,
+  statusConstantOption,
   emailConfigurationEncryptoionOption,
 } from "@/constant/statusConst";
 import { InputSelect } from "@/common/Form/common/inputSelect";
@@ -11,12 +11,12 @@ export const CookieConsentForm = ({ onData, onUpdate, loading }) => {
     <div>
       <Formik
         initialValues={{
-          status: onData?.status || "",
+          status: onData?.status + 1 || "",
           message: onData?.message || "",
         }}
         onSubmit={(values, actions) => {
           onUpdate({
-            status: values?.status || "",
+            status: values?.status - 1 || "",
             message: values?.message || "",
           });
 
@@ -28,7 +28,7 @@ export const CookieConsentForm = ({ onData, onUpdate, loading }) => {
             <div className="mb-3">
               <label>Allow Cookie Consent</label>
               <InputSelect
-                onData={SettingActiveStatus}
+                onData={statusConstantOption}
                 label="status"
                 name="status"
                 onChange={handleChange}

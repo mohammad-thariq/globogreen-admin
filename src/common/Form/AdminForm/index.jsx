@@ -22,32 +22,30 @@ export const AdminForm = ({
     password: Yup.string().required("password Name is Required"),
     status: Yup.string().required("Status is Required"),
   });
-  console.log(data, "data this");
-  const [imageFile, setImageFile] = useState(null);
   return (
     <div className={style.wrapper}>
       <Formik
         initialValues={{
             name: data?.name || "",
             email: data?.email || "",
-            password: data?.password || "",
-            status: data?.status || "",
+            password: "",
+            status: data?.status + 1 || "",
         }}
         validationSchema={schema}
         onSubmit={(values, actions) => {
           onUpdate
             ? onUpdate({
-                id: currentDeliveryManId,
-                name: data?.name || "",
-                email: data?.email || "",
-                password: data?.password || "",
-                status: data?.status || "",
+                id: currentAdminId,
+                name: values?.name,
+                email: values?.email,
+                password: values?.password,
+                status: values?.status - 1,
               }) 
             : onSave({
-                name: data?.name || "",
-                email: data?.email || "",
-                password: data?.password || "",
-                status: data?.status || "",
+                name: values?.name,
+                email: values?.email,
+                password: values?.password,
+                status: values?.status - 1,
               });
           actions.setSubmitting(true);
         }}

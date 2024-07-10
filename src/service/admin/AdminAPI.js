@@ -18,7 +18,7 @@ export class AdminAPI {
         return res;
       };
       updateAdmin = async (data) => {
-        const res = await _axios("put", `/admin?token=${getToken()}`, data);
+        const res = await _axios("put", `/admin/${data.id}?token=${getToken()}`, data);
         return res;
       };
 

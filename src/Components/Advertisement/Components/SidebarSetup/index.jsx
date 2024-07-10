@@ -60,10 +60,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateSliderBannerOneLoading,
   } = useMutation(updateSliderBannerOne, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -74,10 +74,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateSliderBannerTwoLoading,
   } = useMutation(updateSliderBannerTwo, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -88,10 +88,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updatePopularCategorySidebarLoading,
   } = useMutation(updatePopularCategorySidebar, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -102,10 +102,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateHomepagecolFirstBannerLoading,
   } = useMutation(updateHomepagecolFirstBanner, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -116,10 +116,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateHomepagecolSecondBannerLoading,
   } = useMutation(updateHomepagecolSecondBanner, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -130,10 +130,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateHomepagesingleFirstBannerLoading,
   } = useMutation(updateHomepagesingleFirstBanner, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -144,10 +144,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateHomepagesingleSecondBannerLoading,
   } = useMutation(updateHomepagesingleSecondBanner, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -158,10 +158,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateMegaMenuBannerLoading,
   } = useMutation(updateMegaMenuBanner, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -172,10 +172,10 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateShoppageCenterbannerLoading,
   } = useMutation(updateShoppageCenterbanner, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
@@ -186,15 +186,16 @@ export const SidebarSetup = ({ onData }) => {
     isLoading: updateShoppagesidebarBannerLoading,
   } = useMutation(updateShoppagesidebarBanner, {
     onSuccess: (data, variables, context) => {
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.message);
     },
     onError: (data, variables, context) => {
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.message);
     },
   });
 
   const currentActive = getCurrentActive(toggleSettings);
-  console.log(onData, "onData");
+
+  console.log(currentActive, "onData");
   return (
     <div className="container-fluid py-4">
       <div className="card">
@@ -216,6 +217,7 @@ export const SidebarSetup = ({ onData }) => {
                   AdvertisementSideOptionsEnum.sliderSidebarBannerOne && (
                   <SliderSidebarBannerOneForm
                     onData={currentActive}
+                    categoryLink={onData?.product}
                     onUpdate={updateSliderBannerOneMutate}
                     loading={updateSliderBannerOneLoading}
                   />
@@ -226,6 +228,7 @@ export const SidebarSetup = ({ onData }) => {
                 <SliderSidebarBannerTwoForm
                   onData={onData && onData?.sliderSidebarBannerTwo}
                   onUpdate={updateSliderBannerTwoMutate}
+                  categoryLink={onData?.product}
                   loading={updateSliderBannerTwoLoading}
                 />
               )}
@@ -234,6 +237,7 @@ export const SidebarSetup = ({ onData }) => {
                 <PopularCategoriesSidebarBannerForm
                   onData={onData && onData?.popularCategorySidebarBanner}
                   onUpdate={updatePopularCategorySidebarMutate}
+                  categoryLink={onData?.product}
                   loading={updatePopularCategorySidebarLoading}
                 />
               )}
@@ -242,6 +246,7 @@ export const SidebarSetup = ({ onData }) => {
                 <HomepageTwoColumnbannerOne
                   onData={onData && onData?.homepageTwoColumnBannerOne}
                   onUpdate={updateHomepagecolFirstBannerMutate}
+                  categoryLink={onData?.product}
                   loading={updateHomepagecolFirstBannerLoading}
                 />
               )}
@@ -249,6 +254,7 @@ export const SidebarSetup = ({ onData }) => {
                 AdvertisementSideOptionsEnum.homepageTwoColumnBannerTwo && (
                 <HomepageTwoColumnBannerTwoForm
                   onData={onData && onData?.homepageTwoColumnBannerTwo}
+                  categoryLink={onData?.product}
                   onUpdate={updateHomepagecolSecondBannerMutate}
                   loading={updateHomepagecolSecondBannerLoading}
                 />
@@ -257,6 +263,7 @@ export const SidebarSetup = ({ onData }) => {
                 AdvertisementSideOptionsEnum.homepageSingleBannerOne && (
                 <HomepageSingleBannerOneForm
                   onData={onData && onData?.homepageSingleBannerOne}
+                  categoryLink={onData?.product}
                   onUpdate={updateHomepagesingleFirstBannerMutate}
                   loading={updateHomepagesingleFirstBannerLoading}
                 />
@@ -265,6 +272,7 @@ export const SidebarSetup = ({ onData }) => {
                 AdvertisementSideOptionsEnum.homepageSingleBannerTwo && (
                 <HomepageSingleBannerTwoForm
                   onData={onData && onData?.homepageSingleBannerTwo}
+                  categoryLink={onData?.product}
                   onUpdate={updateHomepagesingleSecondBannerMutate}
                   loading={updateHomepagesingleSecondBannerLoading}
                 />
@@ -274,6 +282,7 @@ export const SidebarSetup = ({ onData }) => {
                 <MegaMenuBannerForm
                   onData={onData && onData?.megaMenuBanner}
                   onUpdate={updateMegaMenuBannerMutate}
+                  categoryLink={onData?.product}
                   loading={updateMegaMenuBannerLoading}
                 />
               )}
@@ -289,6 +298,7 @@ export const SidebarSetup = ({ onData }) => {
                 AdvertisementSideOptionsEnum.shopPageCenterBanner && (
                 <ShopPageCenterBannerForm
                   onData={onData && onData?.shopPageCenterBanner}
+                  categoryLink={onData?.product}
                   onUpdate={updateShoppageCenterbannerMutate}
                   loading={updateShoppageCenterbannerLoading}
                 />
@@ -299,6 +309,7 @@ export const SidebarSetup = ({ onData }) => {
                   onData={onData && onData?.shopPageSidebarBanner}
                   onUpdate={updateShoppagesidebarBannerMutate}
                   loading={updateShoppagesidebarBannerLoading}
+                  categoryLink={onData?.product}
                 />
               )}
             </div>

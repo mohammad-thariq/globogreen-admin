@@ -1,6 +1,6 @@
 import { Button } from "@/common/Button";
 import { Formik } from "formik";
-import { SettingActiveStatus } from "@/constant/statusConst";
+import { statusConstantOption } from "@/constant/statusConst";
 import { InputSelect } from "@/common/Form/common/inputSelect";
 
 export const TawkChatForm = ({ onData, onUpdate, loading }) => {
@@ -8,15 +8,15 @@ export const TawkChatForm = ({ onData, onUpdate, loading }) => {
     <div>
       <Formik
         initialValues={{
-          status: onData?.status || "",
+          status: onData?.status+ 1 || "",
           widget_id: onData?.widget_id || "",
           property_id: onData?.property_id || "",
         }}
         onSubmit={(values, actions) => {
           onUpdate({
-            status: values?.status || "",
-            widget_id: values?.widget_id || "",
-            property_id: values?.property_id || "",
+            status: values?.status - 1,
+            widget_id: values?.widget_id,
+            property_id: values?.property_id,
           });
 
           actions.setSubmitting(true);
@@ -27,7 +27,7 @@ export const TawkChatForm = ({ onData, onUpdate, loading }) => {
             <div className="mb-3">
               <label>Allow Live Chat</label>
               <InputSelect
-                onData={SettingActiveStatus}
+                onData={statusConstantOption}
                 label="status"
                 name="status"
                 onChange={handleChange}

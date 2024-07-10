@@ -1,7 +1,7 @@
 import { Button } from "@/common/Button";
 import { Formik } from "formik";
 import {
-  SettingActiveStatus,
+  statusConstantOption,
   emailConfigurationEncryptoionOption,
 } from "@/constant/statusConst";
 import { InputSelect } from "@/common/Form/common/inputSelect";
@@ -11,13 +11,13 @@ export const GoogleRecaptchaForm = ({ onData, onUpdate, loading }) => {
     <div>
       <Formik
         initialValues={{
-          status: onData?.status || "",
+          status: onData?.status + 1 || "",
           secret_key: onData?.secret_key || "",
           site_key: onData?.site_key || "",
         }}
         onSubmit={(values, actions) => {
           onUpdate({
-            status: values?.mail_host || "",
+            status: values?.status - 1 || "",
             secret_key: values?.secret_key || "",
             site_key: values?.site_key || "",
           });
@@ -30,7 +30,7 @@ export const GoogleRecaptchaForm = ({ onData, onUpdate, loading }) => {
             <div className="mb-3">
               <label>Allow Recaptcha</label>
               <InputSelect
-                onData={SettingActiveStatus}
+                onData={statusConstantOption}
                 label="status"
                 name="status"
                 onChange={handleChange}

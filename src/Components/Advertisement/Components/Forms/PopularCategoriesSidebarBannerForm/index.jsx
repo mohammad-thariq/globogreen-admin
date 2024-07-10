@@ -3,8 +3,9 @@ import { Button } from "@/common/Button";
 import { Formik } from "formik";
 import Image from "next/image";
 import { BaseUrls } from "../../../../../../env";
+import { InputSelect } from "@/common/Form/common/inputSelect";
 
-export const PopularCategoriesSidebarBannerForm = ({ onData, loading, onUpdate }) => {
+export const PopularCategoriesSidebarBannerForm = ({ onData, loading, onUpdate, categoryLink }) => {
   return (
     <div>
       <Formik
@@ -13,7 +14,7 @@ export const PopularCategoriesSidebarBannerForm = ({ onData, loading, onUpdate }
           image: null,
           link: onData?.link || "",
           product_slug: onData?.product_slug || "",
-          status: onData?.status || "",
+          status: onData?.status + 1 || "",
           title_one: onData?.title_one || "",
           title_two: onData?.title_two || "",
           badge: onData?.badge || "",
@@ -24,7 +25,7 @@ export const PopularCategoriesSidebarBannerForm = ({ onData, loading, onUpdate }
             banner_image: "",
             link: values?.link,
             product_slug: values?.product_slug,
-            status: values?.status,
+            status: values?.status - 1,
             title_one: "",
             title_two: "",
             badge: "",
@@ -64,17 +65,14 @@ export const PopularCategoriesSidebarBannerForm = ({ onData, loading, onUpdate }
                 value={values?.image}
               />
             </div>
-            <div className="mb-3">
-              <label>Categories Link</label>
-              <input
-                type="text"
-                name="link"
-                className="form-control"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values?.link}
-              />
-            </div>
+            <InputSelect
+              label="Categories Link"
+              name="link"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values?.link}
+              onData={categoryLink}
+            />
             <div className="flex justify-content-fs">
               <Button
                 name="Update"

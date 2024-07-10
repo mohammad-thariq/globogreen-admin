@@ -1,7 +1,7 @@
 import { Button } from "@/common/Button";
 import { Formik } from "formik";
 import {
-  SettingActiveStatus,
+  statusConstantOption,
   getCountryCode,
 } from "@/constant/statusConst";
 import { InputSelect } from "@/common/Form/common/inputSelect";
@@ -75,7 +75,7 @@ export const SettingsForm = ({ onData, onUpdate, loading, currencies }) => {
               isValue
               onBlur={handleBlur}
               onChange={handleChange}
-              onData={SettingActiveStatus}
+              onData={statusConstantOption}
               values={values?.phone_number_required}
             />
 
@@ -95,7 +95,7 @@ export const SettingsForm = ({ onData, onUpdate, loading, currencies }) => {
               isValue
               onBlur={handleBlur}
               onChange={handleChange}
-              onData={SettingActiveStatus}
+              onData={statusConstantOption}
               values={values?.multivendor}
             />
 

@@ -145,7 +145,11 @@ export const BaseTable = ({
                   </thead>
                   <tbody>
                     {onAdminData && (
-                     <AdminListTable onAdminData={onAdminData} onDelete={onDelete} onUpdate={onUpdate}/>
+                      <AdminListTable
+                        onAdminData={onAdminData}
+                        onDelete={onDelete}
+                        onUpdate={onUpdate}
+                      />
                     )}
                     {isShown && (
                       <OrderTable

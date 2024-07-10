@@ -41,15 +41,15 @@ export const AdminListTable = ({onAdminData,onDelete, onUpdate}) => {
           <td className="align-middle text-center">
             <span className="text-secondary text-sm font-weight-bold cursor-pointer">
               <span>
-                <DeleteIcon
-                  sx={{ fontSize: 20 }}
-                  onClick={() => onDelete(item.id)}
-                />
-              </span>{" "}
-              <span>
                 <EditNoteIcon
                   sx={{ fontSize: 20 }}
                   onClick={() => onUpdate(item.id)}
+                />
+              </span>{" "}
+              <span>
+                <DeleteIcon
+                  sx={{ fontSize: 20 }}
+                  onClick={() => onDelete(item.id)}
                 />
               </span>
             </span>

@@ -1,7 +1,7 @@
 import { Button } from "@/common/Button";
 import { Formik } from "formik";
 import {
-  SettingActiveStatus,
+  statusConstantOption,
   emailConfigurationEncryptoionOption,
 } from "@/constant/statusConst";
 import { InputSelect } from "@/common/Form/common/inputSelect";
@@ -12,12 +12,12 @@ export const GoogleAnalyticForm = ({ onData, onUpdate, loading }) => {
       <Formik
         initialValues={{
           analytic_id: onData?.analytic_id || "",
-          status: onData?.status || "",
+          status: onData?.status + 1 || "",
         }}
         onSubmit={(values, actions) => {
           onUpdate({
             analytic_id: values?.analytic_id || "",
-          status: values?.status || "",
+          status: values?.status - 1 || "",
           });
 
           actions.setSubmitting(true);
@@ -28,7 +28,7 @@ export const GoogleAnalyticForm = ({ onData, onUpdate, loading }) => {
             <div className="mb-3">
               <label>Allow Google Analytic</label>
               <InputSelect
-                onData={SettingActiveStatus}
+                onData={statusConstantOption}
                 label="status"
                 name="status"
                 onChange={handleChange}
