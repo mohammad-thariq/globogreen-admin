@@ -7,7 +7,11 @@ import { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { BaseUrls } from "../../../../../env";
 import * as Yup from "yup";
-import { tinyMceContentStyle, tinyMcePlugin, tinyMceToolbar } from "@/constant/tableHeading";
+import {
+  tinyMceContentStyle,
+  tinyMcePlugin,
+  tinyMceToolbar,
+} from "@/constant/tableHeading";
 
 const schema = Yup.object({
   name: Yup.string().required("Name is Required"),
@@ -20,6 +24,11 @@ const schema = Yup.object({
   // thumb_image: Yup.string().required("Image is Required"),
   slug: Yup.string().required("Slug is Required"),
   status: Yup.string().required("Status is Required"),
+  gst_no: Yup.string().required("GST No is Required"),
+  net_weight: Yup.string().required("Net weight is Required"),
+  gross_weight: Yup.string().required("Gross weight is Required"),
+  package_size: Yup.string().required("package_size is Required"),
+
   // keys: Yup.array().required("Keys is Required"),
   // specifications: Yup.array().required("Specifications is Required"),
 });
@@ -58,10 +67,10 @@ export const ProductForm = ({
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    if(data){
-      setImagePreview(`${BaseUrls?.IMAGE_URL}/${data?.thumb_image}`)
+    if (data) {
+      setImagePreview(`${BaseUrls?.IMAGE_URL}/${data?.thumb_image}`);
     }
-  }, [data])
+  }, [data]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -119,6 +128,10 @@ export const ProductForm = ({
     <div className={style.wrapper}>
       <Formik
         initialValues={{
+          gst_no: data?.gst_no || "",
+          net_weight: data?.net_weight || "",
+          gross_weight: data?.gross_weight || "",
+          package_size: data?.package_size || "",
           short_name: data?.short_name || "",
           name: data?.name || "",
           slug: data?.slug || "",
@@ -151,6 +164,10 @@ export const ProductForm = ({
           onUpdate
             ? onUpdate({
                 id: currentProductId,
+                gst_no: values?.gst_no || "",
+                net_weight: values?.net_weight || "",
+                gross_weight: values?.gross_weight || "",
+                package_size: values?.package_size || "",
                 short_name: values?.short_name,
                 name: values?.name,
                 slug: values?.slug,
@@ -218,7 +235,6 @@ export const ProductForm = ({
           handleSubmit,
         }) => (
           <form className="formInner overflow-column height-500">
-           
             <label>Thumb Image</label>
             <div className="mb-2">
               <input
@@ -233,13 +249,13 @@ export const ProductForm = ({
               />
             </div>
             <div className={style.imageSelect}>
-                <img
+              <img
                 className={style.imageSelect}
-                  src={imagePreview || '/assets/img/placeholder.jpg'}
-                  alt="Preview"
-                  style={{ maxWidth: "100%" }}
-                />
-              </div>
+                src={imagePreview || "/assets/img/placeholder.jpg"}
+                alt="Preview"
+                style={{ maxWidth: "100%" }}
+              />
+            </div>
             <label>Short Name</label>
             <div className="mb-2">
               <input
@@ -276,6 +292,7 @@ export const ProductForm = ({
                 {errors.name && touched.name && errors.name}
               </p>
             </div>
+
             <label>Slug</label>
             <div className="mb-2">
               <input
@@ -293,6 +310,7 @@ export const ProductForm = ({
                 {errors.slug && touched.slug && errors.slug}
               </p>
             </div>
+           
 
             <label>Category</label>
             <select
@@ -327,7 +345,7 @@ export const ProductForm = ({
                 </option>
               ))}
             </select>
-                       <label>Child Category</label>
+            <label>Child Category</label>
             <select
               className="form-select"
               name="child_category"
@@ -342,7 +360,7 @@ export const ProductForm = ({
                 </option>
               ))}
             </select>
-          
+
             <label>Brand</label>
             <select
               className="form-select"
@@ -399,7 +417,6 @@ export const ProductForm = ({
                 onBlur={handleBlur}
                 value={values.offer_price}
               />
-           
             </div>
             <label>Stock Quantity</label>
             <div className="mb-2">
@@ -412,7 +429,6 @@ export const ProductForm = ({
                 onBlur={handleBlur}
                 value={values.quantity}
               />
-            
             </div>
             <label>Weight</label>
             <div className="mb-2">
@@ -511,6 +527,74 @@ export const ProductForm = ({
                 />
                 <label className="mt-2">Featured Product</label>
               </div>
+            </div>
+            <label>GST No</label>
+            <div className="mb-2">
+              <input
+                type="text"
+                name="gst_no"
+                className="form-control"
+                placeholder="Gst No"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.gst_no}
+              />
+              <p
+                style={{ marginTop: "5px", marginBottom: "5px", color: "red" }}
+              >
+                {errors.gst_no && touched.gst_no && errors.gst_no}
+              </p>
+            </div>
+            <label>Net Weight</label>
+            <div className="mb-2">
+              <input
+                type="text"
+                name="net_weight"
+                className="form-control"
+                placeholder="Net weight"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.net_weight}
+              />
+              <p
+                style={{ marginTop: "5px", marginBottom: "5px", color: "red" }}
+              >
+                {errors.net_weight && touched.net_weight && errors.net_weight}
+              </p>
+            </div>
+            <label>Grass Weight</label>
+            <div className="mb-2">
+              <input
+                type="text"
+                name="gross_weight"
+                className="form-control"
+                placeholder="Gross weight"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.gross_weight}
+              />
+              <p
+                style={{ marginTop: "5px", marginBottom: "5px", color: "red" }}
+              >
+                {errors.gross_weight && touched.gross_weight && errors.gross_weight}
+              </p>
+            </div>
+            <label>Package Size</label>
+            <div className="mb-2">
+              <input
+                type="text"
+                name="package_size"
+                className="form-control"
+                placeholder="Package Size"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.package_size}
+              />
+              <p
+                style={{ marginTop: "5px", marginBottom: "5px", color: "red" }}
+              >
+                {errors.package_size && touched.package_size && errors.package_size}
+              </p>
             </div>
 
             <label>Status</label>
