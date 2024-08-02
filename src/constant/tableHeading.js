@@ -161,6 +161,10 @@ export const productTableHeading = [
   "Price",
   "Photo",
   "Type",
+  "Gst No",
+  "Net Weight",
+  "Gross Weight",
+  "Package Size",
   "Status",
   "Action",
 ];

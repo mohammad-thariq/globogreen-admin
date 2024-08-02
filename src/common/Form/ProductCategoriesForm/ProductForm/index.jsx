@@ -562,7 +562,7 @@ export const ProductForm = ({
                 {errors.net_weight && touched.net_weight && errors.net_weight}
               </p>
             </div>
-            <label>Grass Weight</label>
+            <label>Gross Weight</label>
             <div className="mb-2">
               <input
                 type="text"

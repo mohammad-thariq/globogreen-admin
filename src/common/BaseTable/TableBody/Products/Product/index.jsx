@@ -51,6 +51,27 @@ export const Product = ({ onProductData, onUpdate, onDelete, onNavigate }) => {
               </span>
             </td>
             <td className="align-middle text-center">
+              <span className="text-secondary text-sm font-weight-bold">
+                {"-"}
+              </span>
+            </td>
+            <td className="align-middle text-center">
+              <span className="text-secondary text-sm font-weight-bold">
+                {"-"}
+              </span>
+            </td>
+            <td className="align-middle text-center">
+              <span className="text-secondary text-sm font-weight-bold">
+                {"-"}
+              </span>
+            </td>
+            <td className="align-middle text-center">
+              <span className="text-secondary text-sm font-weight-bold">
+                {"-"}
+              </span>
+            </td>
+
+            <td className="align-middle text-center">
               <ProductStatus status={item?.status} />
             </td>
 
