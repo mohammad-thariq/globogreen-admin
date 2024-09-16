@@ -1,5 +1,5 @@
 import { ToastifyFailed, ToastifySuccess } from "@/common/Toastify";
-import { localStorageConst, userData } from "@/constant/localStorage";
+import { localStorageConst } from "@/constant/localStorage";
 import { Reload, Redirect } from "@/helper/base";
 import { AuthorizationApi } from "@/service/auth/auth";
 import { LocalStorageHelper } from "@/utils/localStorage";
@@ -22,7 +22,7 @@ export const handleLogin = async (data) => {
         id: res.admin.id,
         name: res.admin.name,
         email: res.admin.email,
-        avatar: `${BaseUrls.BASE_URL}/${res.admin.image}`,
+        avatar: `${BaseUrls.IMAGE_URL}/${res.admin.image}`,
       };
       LocalStorageHelper?.setItem(localStorageConst.USER, user);
       ToastifySuccess(`Welcome Back ${user.name}`);

@@ -14,6 +14,7 @@ import { useMutation, useQuery } from "react-query";
 export const RecevieAmount = () => {
   const { recevieAmount, createRecevieAmount, deleteRecevieAmount } =
     new DeliveryManAPI();
+    
   const { data, isLoading, refetch } = useQuery(
     ["recevieAmount"],
     recevieAmount
@@ -28,13 +29,13 @@ export const RecevieAmount = () => {
   } = useMutation(createRecevieAmount, {
     onSuccess: (data, variables, context) => {
       setOpenCreatePopup(false);
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.messege);
       refetch();
     },
     onError: (data, variables, context) => {
       setOpenCreatePopup(true);
       refetch();
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.messege);
     },
   });
 
@@ -44,12 +45,12 @@ export const RecevieAmount = () => {
   } = useMutation(deleteRecevieAmount, {
     onSuccess: (data, variables, context) => {
       setOpenDeletePopup(false);
-      ToastifySuccess(data?.notification);
+      ToastifySuccess(data?.messege);
       refetch();
     },
     onError: (data, variables, context) => {
       setOpenDeletePopup(true);
-      ToastifyFailed(data?.notification);
+      ToastifyFailed(data?.messege);
     },
   });
 

@@ -10,12 +10,12 @@ export const SellerWithdraw = ({ onSellerWithdrawData, onDelete, onUpdate }) => 
           <tr key={index}>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item.id}
+                {index + 1}
               </span>
             </td>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {""}
+                {item.seller.shop_name}
               </span>
             </td>
             <td className="align-middle text-center">
@@ -42,12 +42,12 @@ export const SellerWithdraw = ({ onSellerWithdrawData, onDelete, onUpdate }) => 
               <ProductStatus status={item?.status} />
             </td>
             <td className="align-middle text-center cursor-pointer">
-            <span>
+            {/* <span>
                 <EditNoteIcon
                   sx={{ fontSize: 25 }}
                   onClick={() => onUpdate(item.id)}
                 />
-              </span>{" "}
+              </span>{" "} */}
               <span>
                 <DeleteIcon
                   sx={{ fontSize: 20 }}

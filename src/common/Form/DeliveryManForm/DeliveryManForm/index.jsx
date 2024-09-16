@@ -16,7 +16,7 @@ export const DeliveryManForm = ({
   button,
 }) => {
   const schema = Yup.object({
-    man_image: Yup.string().required("Man Image is Required"),
+    // man_image: Yup.string().required("Man Image is Required"),
     fname: Yup.string().required("First Name is Required"),
     email: Yup.string().required("Email is Required"),
     // total_order : Yup.string().required("Total Order is Required"),
@@ -127,7 +127,7 @@ export const DeliveryManForm = ({
                 {errors.email && touched.email && errors.email}
               </p>
             </div>
-            <label>Total Order</label>
+            {/* <label>Total Order</label>
             <div className="mb-3">
               <input
                 type="name"
@@ -145,7 +145,7 @@ export const DeliveryManForm = ({
                   touched.total_order &&
                   errors.total_order}
               </p>
-            </div>
+            </div> */}
 
             <InputSelect
               label={"Status"}

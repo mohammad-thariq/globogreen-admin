@@ -9,6 +9,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { SideBarNav } from "../SideBar";
 import { Reload } from "@/helper/base";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import { BaseUrls } from "../../../env";
 
 export const Breadcrumb = ({ currentPage, serachEnable }) => {
   const [userData, setUserData] = useState();
@@ -88,8 +89,8 @@ export const Breadcrumb = ({ currentPage, serachEnable }) => {
                   >
                     {userData && userData?.avatar ? (
                       <img
-                        src={"../assets/img/team-2.jpg"}
-                        alt=""
+                        src={`${userData?.avatar}` || "../assets/img/team-2.jpg"}
+                        alt="Admin Profile"
                         style={{ borderRadius: 50 }}
                         width={30}
                         height={30}

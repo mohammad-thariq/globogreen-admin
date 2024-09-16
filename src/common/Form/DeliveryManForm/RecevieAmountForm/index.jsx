@@ -16,14 +16,16 @@ export const RecevieAmountForm = ({
   button,
 }) => {
   const schema = Yup.object({
+    total_amount: Yup.string().required("Total Amount is Required"),
     status: Yup.string().required("Status is Required"),
   });
   console.log(data, "data this");
-  const [imageFile, setImageFile] = useState(null);
+
   return (
     <div className={style.wrapper}>
       <Formik
         initialValues={{
+          total_amount: data?.total_amount || "",
           status: data?.status + 1 || "", 
         }}
         validationSchema={schema}
@@ -31,10 +33,14 @@ export const RecevieAmountForm = ({
           onUpdate
             ? onUpdate({
                 id: currentCountryId,
+                delivery_man_id: 1,
+                total_amount: values?.total_amount,
                 status: values?.status - 1,
               })
             : onSave({
-                status: values?.status - 1,
+              delivery_man_id: 1,
+              total_amount: values?.total_amount,
+              status: values?.status - 1,
               });
           actions.setSubmitting(true);
         }}
@@ -48,7 +54,7 @@ export const RecevieAmountForm = ({
           handleSubmit,
         }) => (
           <form role="form" className="w-350">		
-            <label>Delivery man</label>
+            {/* <label>Delivery man</label>
             <div className="mb-3">
               <input
                 type="name"
@@ -64,25 +70,25 @@ export const RecevieAmountForm = ({
               >
                 {errors.fname && touched.fname && errors.fname}
               </p>
-            </div>
+            </div> */}
             <label>Total Amount</label>
             <div className="mb-3">
               <input
-                type="email"
-                name="email"
+                type="number"
+                name="total_amount"
                 className="form-control"
                 placeholder="Total Amount"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.email}
+                value={values.total_amount}
               />
               <p
                 style={{ marginTop: "5px", marginBottom: "5px", color: "red" }}
               >
-                {errors.email && touched.email && errors.email}
+                {errors.total_amount && touched.total_amount && errors.total_amount}
               </p>
             </div>
-            <label>Date</label>
+            {/* <label>Date</label>
             <div className="mb-3">
               <input
                 type="name"
@@ -115,7 +121,7 @@ export const RecevieAmountForm = ({
               >
                 {errors.name && touched.name && errors.name}
               </p>
-            </div>
+            </div> */}
             <InputSelect
               label={"Status"}
               onBlur={handleBlur}

@@ -68,6 +68,15 @@ export class DeliveryManAPI {
     return res;
   }
 
+  // updateRecevieAmount = async (data) =>{
+  //   const res = await _axios(
+  //     "post",
+  //     `/delivery-man-order-amount/store?${getToken()}`,
+  //     data
+  //   );
+  //   return res;
+  // }
+
   deleteRecevieAmount = async () =>{
     const res = await _axios(
       "delete",

@@ -12,7 +12,7 @@ export const MegaMenuCategoriesTable = (props) => {
           <tr key={index}>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold">
-                {item.id}
+                {index + 1}
               </span>
             </td>
             <td className="align-middle text-center">
@@ -30,14 +30,14 @@ export const MegaMenuCategoriesTable = (props) => {
             </td>
             <td className="align-middle text-center">
               <span className="text-secondary text-sm font-weight-bold cursor-pointer">
-                <span>
+                {/* <span>
                   <EditNoteIcon
                     sx={{ fontSize: 25 }}
                     onClick={() =>
                       props?.onUpdate(item.id)
                     }
                   />
-                </span>
+                </span> */}
                 {"  "}
                 <span>
                   <AddBoxIcon

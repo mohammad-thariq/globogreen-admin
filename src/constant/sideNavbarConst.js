@@ -191,10 +191,10 @@ export const SideNavConst = {
           name: "Flash Sale",
           url: "/admin/flash-sale",
         },
-        {
-          name: "Flash Sale Product",
-          url: "/admin/flash-sale-product",
-        },
+        // {
+        //   name: "Flash Sale Product",
+        //   url: "/admin/flash-sale-product",
+        // },
         {
           name: "Coupon",
           url: "/admin/coupon",

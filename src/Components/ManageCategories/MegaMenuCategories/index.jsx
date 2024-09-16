@@ -109,8 +109,7 @@ export const MegaMenuCategories = () => {
   if (isLoading) {
     return <Loader />
   }
-
-  console.log(data);
+  
   return (
     <>
       <Breadcrumb currentPage={"Mega Menu Categories"} serachEnable />

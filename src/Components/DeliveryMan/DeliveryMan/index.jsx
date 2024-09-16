@@ -100,7 +100,7 @@ export const DeliveryMan = () => {
   return (
     <>
       <Breadcrumb currentPage={"Delivery Man"} serachEnable />
-      <div className="flex ms-4">
+      {/* <div className="flex ms-4">
         <Button
           name="Add New"
           color="#fff"
@@ -110,7 +110,7 @@ export const DeliveryMan = () => {
           icon="fa fa-plus"
           onClick={handleCreateDeliveryMan}
         />
-      </div>
+      </div> */}
       <BaseTable
         tableHeadings={deliveryManTableHeading}
         onDeliveryManData={data}
