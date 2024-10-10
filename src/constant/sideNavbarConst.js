@@ -69,18 +69,18 @@ export const SideNavConst = {
           name: "Child Categories",
           url: "/admin/child-categories",
         },
-        {
-          name: "Mega Menu Categories",
-          url: "/admin/mega-menu-categories",
-        },
-        {
-          name: "Popular Categories",
-          url: "/admin/popular-categories",
-        },
-        {
-          name: "Featured Categories",
-          url: "/admin/featured-categories",
-        },
+        // {
+        //   name: "Mega Menu Categories",
+        //   url: "/admin/mega-menu-categories",
+        // },
+        // {
+        //   name: "Popular Categories",
+        //   url: "/admin/popular-categories",
+        // },
+        // {
+        //   name: "Featured Categories",
+        //   url: "/admin/featured-categories",
+        // },
       ],
     },
     {

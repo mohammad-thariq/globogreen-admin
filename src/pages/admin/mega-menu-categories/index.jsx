@@ -1,5 +1,7 @@
 import { MegaMenuCategories } from "@/Components/ManageCategories/MegaMenuCategories";
 
-export default function megaMenucategorie(){
+const megaMenucategorie = () =>{
     return < MegaMenuCategories/>
 }
+
+export default megaMenucategorie

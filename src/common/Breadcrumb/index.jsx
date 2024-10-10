@@ -142,7 +142,7 @@ export const Breadcrumb = ({ currentPage, serachEnable }) => {
                 </a>
               </li>
               <li className="nav-item dropdown pe-2 d-flex align-items-center">
-                <a
+                {/* <a
                   className="nav-link text-body p-0 cursor-pointer"
                   id="dropdownMenuButton"
                   data-bs-toggle="dropdown"
@@ -153,7 +153,7 @@ export const Breadcrumb = ({ currentPage, serachEnable }) => {
                     sx={{ fontSize: "18px" }}
                     onClick={() => router.push("/admin/inventory")}
                   />
-                </a>
+                </a> */}
                 <ul
                   className="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                   aria-labelledby="dropdownMenuButton"
